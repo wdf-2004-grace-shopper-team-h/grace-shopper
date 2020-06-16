@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {green} = require('chalk')
+const {green, red} = require('chalk')
 const Products = require('../db/models/products')
 
 router.get('/', async (req, res, next) => {
