@@ -17,10 +17,13 @@ async function seed() {
       amount: 20, 
       price: 9.99, 
       description: `Slide, collide and score to win the game of Sorry! Draw cards to see how far you get to move one of your pawns on the board. If you land on a Slide you can zip to the end and bump your opponents' pawns  or your own! Jump over pawns and hide in your Safety zone while getting powers with the 2 power-up tokens. Keep on moving and bumping until you get all three of your pawns from your color Start to your color Home. But watch out, because if you get bumped, Sorry! It's all the way back to Start!
-      \nIncludes gameboard, 12 Sorry! Pawns, 44 cards, 2 power-up tokens and instructions. Product Features:
+      \nIncludes gameboard, 12 Sorry! Pawns, 44 cards, 2 power-up tokens and instructions. 
+      \nProduct Features: 
       \n* Classic Sorry! game is mystery-solving guessing fun
       \n* Bump other players' pawns and hide in your Safety Zone, where pawns of other colors can't enter 
-      \n* Power-up tokens give you special powers /n Ages 6 and up. /nFor 2 to 4 players.
+      \n* Power-up tokens give you special powers 
+      \n Ages 6 and up. 
+      \n For 2 to 4 players.
       \n Sorry! and all related characters are trademarks of Hasbro.`,
       imgUrl: "https://www.hasbro.com/common/productimages/en_US/590E193450569047F59F9F4E9B948900/f3a2b73e4729327715e8178abd2699dcd50bbac9.jpg"
     }),
@@ -64,7 +67,7 @@ async function seed() {
       price: 9.99,
       description: `​UNO™ is the classic family card game that's easy to pick up and impossible to put down! Players take turns matching a card in their hand with the current card shown on top of the deck either by color or number. Special action cards, like Skips, Reverses, Draw Twos, color-changing Wild and Draw Four Wild cards, deliver game-changing moments as they each perform a function to help you defeat your opponents. If you can't make a match, you must draw from the center pile. And when you're down to one card, don't forget to shout "UNO!" The first player to get rid of all the cards in their hand wins. Now card game-lovers can get UNO™ in a sturdy tin that's great for travel and makes storage stress-free. Colors and decorations may vary.
 
-      ​UNO™ is the classic family card game that's easy to learn and so much fun to play! 
+      ​\nUNO™ is the classic family card game that's easy to learn and so much fun to play! 
       \n*​In a race to deplete your hand, match one of your cards with the current card shown on top of the deck by either color or number. 
       \n*​Strategize to defeat your competition with special action cards like Skips, Reverses, Draw Twos and color-changing Wild cards. 
       ​\n*When you're down to one card, don't forget to shout "UNO!" 
