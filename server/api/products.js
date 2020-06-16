@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const {green, red} = require('chalk')
 const Products = require('../db/models/products')
+module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
