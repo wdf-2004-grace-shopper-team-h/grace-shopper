@@ -1,21 +1,22 @@
+/* eslint-disable */
 'use strict'
 
 const db = require('../server/db')
-const {Products} = require('../server/db/models')
+const {Products, User} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  // const users = await Promise.all([
-  //   User.create({email: 'cody@email.com', password: '123'}),
-  //   User.create({email: 'murphy@email.com', password: '123'})
-  // ])
+  const users = await Promise.all([
+    User.create({email: 'cody@email.com', password: '123'}),
+    User.create({email: 'murphy@email.com', password: '123'})
+  ])
   const products = await Promise.all([
     Products.create({
-      name: "Sorry!",
-      amount: 20, 
-      price: 9.99, 
+      name: 'Sorry!',
+      amount: 20,
+      price: 9.99,
       description: `Slide, collide and score to win the game of Sorry! Draw cards to see how far you get to move one of your pawns on the board. If you land on a Slide you can zip to the end and bump your opponents' pawns  or your own! Jump over pawns and hide in your Safety zone while getting powers with the 2 power-up tokens. Keep on moving and bumping until you get all three of your pawns from your color Start to your color Home. But watch out, because if you get bumped, Sorry! It's all the way back to Start!
       \nIncludes gameboard, 12 Sorry! Pawns, 44 cards, 2 power-up tokens and instructions. 
       \nProduct Features: 
@@ -25,11 +26,12 @@ async function seed() {
       \n Ages 6 and up. 
       \n For 2 to 4 players.
       \n Sorry! and all related characters are trademarks of Hasbro.`,
-      imgUrl: "https://www.hasbro.com/common/productimages/en_US/590E193450569047F59F9F4E9B948900/f3a2b73e4729327715e8178abd2699dcd50bbac9.jpg"
+      imgUrl:
+        'https://www.hasbro.com/common/productimages/en_US/590E193450569047F59F9F4E9B948900/f3a2b73e4729327715e8178abd2699dcd50bbac9.jpg'
     }),
     Products.create({
-      name: "Monopoly",
-      amount: 20, 
+      name: 'Monopoly',
+      amount: 20,
       price: 16.99,
       description: `This version of the Monopoly game welcomes the Rubber Ducky, Tyrannosaurus Rex, and Penguin into its family of tokens. Choose your token, place it on GO! and roll the dice to own it all! There can be only one winner in the Monopoly game. Will it be you?
 
@@ -40,13 +42,14 @@ async function seed() {
       \n* Change your fortune with Chance and Community Chest cards.
       \n* And bankrupt your opponents to win it all
       \n* Ages 8 and up
-      \n* For 2-8 players`, 
-      imgUrl:'https://www.hasbro.com/common/productimages/en_US/7EABAF9750569047F5778F4663C79E75/885BBE6B65D1415A8C945214207F7678.jpg'
+      \n* For 2-8 players`,
+      imgUrl:
+        'https://www.hasbro.com/common/productimages/en_US/7EABAF9750569047F5778F4663C79E75/885BBE6B65D1415A8C945214207F7678.jpg'
     }),
     Products.create({
-      name: "Taboo",
+      name: 'Taboo',
       amount: 20,
-      price: 14.99, 
+      price: 14.99,
       description: `It's the exciting Taboo game that keeps players on the edge of their seats! Players try to get teammates to say the Guess word on the card without using any of the Taboo words in the clues. If the describer says a Taboo word listed on the card while giving the clues, they'll get interrupted with the electronic buzzer and lose a turn. Players keep the cards that were guessed correctly, and the team with the most cards wins the game. With 400 double-sided cards in this Taboo game, players will have plenty of words to choose from as they race against the clock to give teammates the best descriptions and clues possible.
 
       \n* Includes 400 cards, buzzer, timer, and instructions.
@@ -60,10 +63,10 @@ async function seed() {
       \n* For 4 or more players.
       \n* Requires 2 x 1.5V AAA alkaline batteries. (batteries not included.)`,
       imgUrl: `https://www.hasbro.com/common/productimages/en_US/84edd93150569047f5e581401d4d8865/435cef1703a70482ac0bd938671b6e72f79f7fd1.jpg`
-    }), 
+    }),
     Products.create({
-      name: "Uno Tin",
-      amount: 20, 
+      name: 'Uno Tin',
+      amount: 20,
       price: 9.99,
       description: `​UNO™ is the classic family card game that's easy to pick up and impossible to put down! Players take turns matching a card in their hand with the current card shown on top of the deck either by color or number. Special action cards, like Skips, Reverses, Draw Twos, color-changing Wild and Draw Four Wild cards, deliver game-changing moments as they each perform a function to help you defeat your opponents. If you can't make a match, you must draw from the center pile. And when you're down to one card, don't forget to shout "UNO!" The first player to get rid of all the cards in their hand wins. Now card game-lovers can get UNO™ in a sturdy tin that's great for travel and makes storage stress-free. Colors and decorations may vary.
 
@@ -93,11 +96,9 @@ async function seed() {
       \n* Adult assembly required.
       \n* For 2 to 4 players.`,
       imgUrl: `https://www.hasbro.com/common/productimages/en_US/7ea5414950569047f5a233f4578345cc/7EA77B3150569047F54E3350FA98227B.jpg`
-
     })
   ])
 
-  console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
 }
 
