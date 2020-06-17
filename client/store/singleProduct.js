@@ -2,7 +2,7 @@ const store = require('./index.js')
 
 const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
 
-const getSingleProduct = id => ({
+export const getSingleProduct = id => ({
     type: GET_SINGLE_PRODUCT,
     id
 })
