@@ -16,9 +16,9 @@ const addItemToCart = productId => ({
 
 const defaultItems = []
 
-export const fetchItems = () => async dispatch => {
+export const fetchItems = (id) => async dispatch => {
   try {
-    const {data} = await axios.get('/api/cart')
+    const {data} = await axios.get(`/api/cart/${id}`);
     dispatch(getItems(data))
   } catch (error) {
     console.error(error)
