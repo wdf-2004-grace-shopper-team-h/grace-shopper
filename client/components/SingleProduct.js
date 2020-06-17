@@ -8,8 +8,9 @@ const SingleProduct = props => {
             {product.name}
             {product.imgUrl}
             {product.description}
-            amount: {product.amount}
             price: {product.price}
+            <input type='integer' min='0'></input>
+            <button>add to cart</button>
         </div>
     )
 }
