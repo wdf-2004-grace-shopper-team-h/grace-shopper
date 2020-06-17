@@ -2,7 +2,7 @@ const router = require('express').Router()
 const Cart = require('../db/models/cart')
 const User = require('../db/models/user')
 module.exports = router
-
+//
 router.get('/', async (req, res, next) => {
   try {
     const cart = await Cart.findByPk({
@@ -16,11 +16,14 @@ router.get('/', async (req, res, next) => {
 //find one where user Id's match and includes cart
 router.put('/addItemToCart', async (req, res, next) => {
   try {
-    const cart = await Cart.findOne({
-      where: {
-        userId: req.session.userId // req.body.userId?
-      }
-    })
+    //we want to use user[id].createCart{itemId: id, amount: amount}
+    // we want to search the cart for the userId === userId & itemId === itemId
+    // then amount: amount+=amount
+    // const cart = await Cart.findOne({
+    //   where: {
+    //     userId: req.session.userId // req.body.userId?
+    //   }
+    // })
     const itemId = req.body.itemId
     const quantity = req.body.itemId.quantity
     if (!cart.itemId) {
@@ -39,39 +42,7 @@ router.put('/addItemToCart', async (req, res, next) => {
     next(error)
   }
 })
-router.put('/updateQuantity', async (req, res, next) => {
-  try {
-    const cart = await Cart.findOne({
-      where: {
-        userId: req.session.userId //req.body.userId?
-      }
-    })
-    const itemId = req.body.itemId
-    const quantity = req.body.itemId.quantity
 
-    itemId.quantity = quantity
+// router.post('/', async (req, res, next){
 
-    res.json(cart)
-  } catch (error) {
-    next(error)
-  }
-})
-router.delete('/removeItemFromCart', async (req, res, next) => {
-  try {
-    const cart = await Cart.findOne({
-      where: {
-        userId: req.session.userId //req.body.userId?
-      }
-    })
-    const itemId = req.body.itemId
-
-    delete cart.itemId
-
-    res.json(cart)
-  } catch (error) {
-    next(error)
-  }
-})
-
-//ask for users cart
-//add item id
+// })

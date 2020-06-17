@@ -2,7 +2,8 @@ const User = require('./user')
 const Products = require('./products')
 const Cart = require('./cart')
 
-Cart.belongsTo(User)
+User.hasMany(Cart)
+// Cart.belongsTo(User)
 
 module.exports = {
   User,

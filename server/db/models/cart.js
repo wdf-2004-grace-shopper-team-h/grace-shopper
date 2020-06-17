@@ -2,8 +2,10 @@ const db = require('../db')
 const Sequelize = require('sequelize')
 
 module.exports = db.define('cart', {
-  products: {
-    type: Sequelize.ARRAY,
-    defaultValue: []
+  itemId: {
+    type: Sequelize.INTEGER
+  },
+  amount: {
+    type: Sequelize.INTEGER
   }
 })
