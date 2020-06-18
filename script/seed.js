@@ -2,16 +2,25 @@
 'use strict'
 
 const db = require('../server/db')
-const {Products, User} = require('../server/db/models')
+const {Products, User, Cart} = require('../server/db/models')
+const orderDetails = require('../server/db/models/orderDetails')
+const order = require('../server/db/models/order')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
+  // const cart = await Promise.all([Cart.create(
+  //   Cart.create({itemId: 1, amount: 1})
+  // )])
+
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
+
+  // console.log(users[0].__proto__);
+
   const products = await Promise.all([
     Products.create({
       name: 'Sorry!',
@@ -98,6 +107,18 @@ async function seed() {
       imgUrl: `https://www.hasbro.com/common/productimages/en_US/7ea5414950569047f5a233f4578345cc/7EA77B3150569047F54E3350FA98227B.jpg`
     })
   ])
+
+  await User.findByPk(1)
+    .then(user => user.createOrder())
+    .then(order =>
+      order.createOrderDetail({productId: 2, quantity: 3, total_cost: 300})
+    )
+
+  await users[0].createCart({productId: 4, amount: 1})
+  await users[0].createCart({productId: 1, amount: 3})
+
+  //checking update in Cart model
+  await Cart.updateAmount(1, 4, 10)
 
   console.log(`seeded successfully`)
 }
