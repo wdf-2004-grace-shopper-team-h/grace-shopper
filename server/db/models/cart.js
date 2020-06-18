@@ -2,8 +2,13 @@ const db = require('../db')
 const Sequelize = require('sequelize')
 
 module.exports = db.define('cart', {
+  productId: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
   amount: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    allowNull: false
   }
 })
 

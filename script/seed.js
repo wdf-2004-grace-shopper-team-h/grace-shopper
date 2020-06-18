@@ -111,18 +111,10 @@ async function seed() {
   await User.findByPk(1)
     .then(user => user.createOrder())
     .then(order =>
-      order
-        .addOrderDetails({quantity: 3, total_cost: 300})
-        .then(orderDetails =>
-          Products.findByPk(2).then(product =>
-            orderDetails.setProducts(product)
-          )
-        )
+      order.createOrderDetail({productId: 2, quantity: 3, total_cost: 300})
     )
 
-  await users[0]
-    .createCart({amount: 1})
-    .then(cart => Products.findByPk(2).then(product => product.addCart(cart)))
+  await users[0].createCart({productId: 4, amount: 1})
 
   console.log(`seeded successfully`)
 }
