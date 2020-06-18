@@ -52,13 +52,4 @@ router.post('/addCart', async (req, res, next) => {
   }
 })
 
-router.delete('/removeItem', async (req, res, next) => {
-  try {
-    const user = await User.findByPk(req.session.userId)
-    const itemId = req.body.itemId
-    const cart = user.carts
-    carts.map()
-  } catch (error) {
-    next(error)
-  }
-})
+// })

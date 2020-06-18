@@ -2,8 +2,7 @@ import React from 'react'
 import fetchCart from '../store/cart'
 import {connect} from 'react-redux'
 import ProductTray from './ProductTray'
-import getCart from '../store/cart'
-
+//import fetchCart from '../store/'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
