@@ -18,7 +18,9 @@ async function seed() {
   ])
 
   users[0].createCart({itemId: 1, amount: 1})
-
+  users[0].createCart({itemId: 2, amount: 2})
+  users[0].createCart({itemId: 3, amount: 3})
+  users[1].createCart({itemId: 2, amount: 2})
   const products = await Promise.all([
     Products.create({
       name: 'Sorry!',
