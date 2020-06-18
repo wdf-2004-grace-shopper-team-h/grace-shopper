@@ -16,7 +16,7 @@ class PastOrders extends React.Component {
             <ul>
                 {this.props.orders.map(order => (
                     <li key={order.id}>
-                    {`${order.quantity} ${order.name} ${order.quantity > 1 ? 's' : ''}`}
+                    {`${order.quantity} ${order.name}${order.quantity > 1 ? 's' : ''}`}
                     <img src={order.imgUrl} />
                     total: {order.total}
                     </li>
