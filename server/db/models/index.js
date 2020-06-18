@@ -9,6 +9,7 @@ User.hasMany(Order)
 Order.hasMany(OrderDetails)
 Products.hasMany(Cart)
 Products.hasMany(Order)
+OrderDetails.belongsTo(Products)
 
 module.exports = {
   User,

@@ -3,6 +3,8 @@
 
 const db = require('../server/db')
 const {Products, User, Cart} = require('../server/db/models')
+const orderDetails = require('../server/db/models/orderDetails')
+const order = require('../server/db/models/order')
 
 async function seed() {
   await db.sync({force: true})
@@ -106,14 +108,22 @@ async function seed() {
     })
   ])
 
+  await User.findByPk(1)
+    .then(user => user.createOrder())
+    .then(order =>
+      order
+        .addOrderDetails({quantity: 3, total_cost: 300})
+        .then(orderDetails =>
+          Products.findByPk(2).then(product =>
+            orderDetails.setProducts(product)
+          )
+        )
+    )
+
   await users[0]
     .createCart({amount: 1})
     .then(cart => Products.findByPk(2).then(product => product.addCart(cart)))
 
-  //  "./:user_id/:product_id/:amount"
-  //"api/users/1/3/1"
-
-  console.log(products[0].__proto__)
   console.log(`seeded successfully`)
 }
 
