@@ -2,7 +2,9 @@
 'use strict'
 
 const db = require('../server/db')
-const {Products, User, Cart} = require('../server/db/models')
+const {Products, User, Cart, OrderDetails} = require('../server/db/models')
+const orderDetails = require('../server/db/models/orderDetails')
+const order = require('../server/db/models/order')
 
 async function seed() {
   await db.sync({force: true})
@@ -21,6 +23,7 @@ async function seed() {
   users[0].createCart({itemId: 2, amount: 2})
   users[0].createCart({itemId: 3, amount: 3})
   users[1].createCart({itemId: 2, amount: 2})
+
   const products = await Promise.all([
     Products.create({
       name: 'Sorry!',
@@ -107,6 +110,22 @@ async function seed() {
       imgUrl: `https://www.hasbro.com/common/productimages/en_US/7ea5414950569047f5a233f4578345cc/7EA77B3150569047F54E3350FA98227B.jpg`
     })
   ])
+
+  await User.findByPk(1)
+    .then(user => user.createOrder())
+    .then(order =>
+      order
+        .addOrderDetails({quantity: 3, total_cost: 300})
+        .then(orderDetails =>
+          Products.findByPk(2).then(product =>
+            orderDetails.setProducts(product)
+          )
+        )
+    )
+
+  await users[0]
+    .createCart({amount: 1})
+    .then(cart => Products.findByPk(2).then(product => product.addCart(cart)))
 
   console.log(`seeded successfully`)
 }

@@ -9,7 +9,7 @@ module.exports = db.define('products', {
       notEmpty: true
     }
   },
-  amount: {
+  inventory_amount: {
     type: Sequelize.INTEGER,
     defaultValue: 0
   },

@@ -12,6 +12,9 @@ router.get('/', async (req, res, next) => {
     const carts = user.carts
 
     res.status(200).json(user.carts)
+
+    const cart = await Cart.findAll()
+    res.status(200).json(cart)
   } catch (err) {
     next(err)
   }
