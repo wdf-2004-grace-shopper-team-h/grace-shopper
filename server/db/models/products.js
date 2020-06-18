@@ -9,12 +9,12 @@ module.exports = db.define('products', {
       notEmpty: true
     }
   },
-  amount: {
+  quantity: {
     type: Sequelize.INTEGER,
     defaultValue: 0
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER, //in penny
     defaultValue: 0
   },
   imgUrl: {
