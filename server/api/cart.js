@@ -5,9 +5,7 @@ module.exports = router
 //
 router.get('/', async (req, res, next) => {
   try {
-    const cart = await Cart.findByPk({
-      where: {}
-    })
+    const cart = await Cart.findAll()
     res.status(200).json(cart)
   } catch (err) {
     next(err)

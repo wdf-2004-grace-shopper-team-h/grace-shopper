@@ -17,7 +17,7 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
-  users[0].createCart({itemId: 1, amount: 1})
+  // console.log(users[0].__proto__);
 
   const products = await Promise.all([
     Products.create({
@@ -106,6 +106,14 @@ async function seed() {
     })
   ])
 
+  await users[0]
+    .createCart({amount: 1})
+    .then(cart => Products.findByPk(2).then(product => product.addCart(cart)))
+
+  //  "./:user_id/:product_id/:amount"
+  //"api/users/1/3/1"
+
+  console.log(products[0].__proto__)
   console.log(`seeded successfully`)
 }
 
