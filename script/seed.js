@@ -115,6 +115,10 @@ async function seed() {
     )
 
   await users[0].createCart({productId: 4, amount: 1})
+  await users[0].createCart({productId: 1, amount: 3})
+
+  //checking update in Cart model
+  await Cart.updateAmount(1, 4, 10)
 
   console.log(`seeded successfully`)
 }
