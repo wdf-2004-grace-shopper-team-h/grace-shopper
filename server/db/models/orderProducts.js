@@ -23,5 +23,11 @@ module.exports = db.define('order_products', {
     validate: {
       min: 0
     }
+  },
+  priceSold: {
+    type: Sequelize.INTEGER,
+    validate: {
+      min: 0
+    }
   }
-})
+}) // 1, [1,2,3,4] , [2,1,2,1]

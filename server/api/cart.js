@@ -1,20 +1,49 @@
 const router = require('express').Router()
-const {Products, Cart, User} = require('../db/models')
+const {Products, User, OrderProducts, Orders} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const user = await User.findByPk({
+    // const user = await User.findByPk({
+    //   where: {
+    //     id: req.session.userId
+    //   }
+    // })
+
+    const currOrder = await OrderProducts.findAll({
+      // gives us OrderId, ProductId, numofItems
       where: {
-        id: req.session.userId
+        userId: req.session.userId
+      },
+      order: [['createdAt', 'DESC']]
+      //last orderId that also had userId
+    })
+    const productIds = currOrder.filter(ele => ele.productId)
+
+    const subTotal = await Orders.findByPk(currOrder[0].orderId)
+
+    const products = await Products.findAll({
+      where: {
+        id: {
+          [Sequelize.Op.in]: [...productIds]
+        }
       }
     })
-    const carts = user.carts
+    /* products - imageUrl, name, price
+      orderProducts - num of Items, orderId, productId 
+      orders - total
 
-    res.status(200).json(user.carts)
 
-    const cart = await Cart.findAll()
-    res.status(200).json(cart)
+      orderProducts = [{numItems, orderId, productId}]
+      subTotal = [{priceTotal}] 
+      products = []
+    */
+
+    // product.name, product.price, product.imgUrl, order.total
+
+    const sendInfo = []
+
+    res.status(200).json()
   } catch (err) {
     next(err)
   }

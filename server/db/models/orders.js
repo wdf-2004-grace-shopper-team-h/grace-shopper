@@ -9,6 +9,10 @@ module.exports = db.define('order', {
   },
   priceTotal: {
     type: Sequelize.INTEGER
+  },
+  completed: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
   // orderDate: {
   //   type: Sequelize.TIME
