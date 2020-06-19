@@ -31,12 +31,14 @@ app.get('/:id', async (req, res, next) => {
 
 app.delete('/:id', async (req, res, next) => {
   try {
+    if (!req.session.admin) res.sendStatus(403)
     const destroyed = await Products.destroy({
       where: {
         id: req.params.id
       }
     })
     console.log(green(`Deleted ${destroyed.name} successfully from the database!`))
+    res.send(destroyed)
   } catch (error) {
     console.log(red(`Can't delete product with id: ${req.params.id} from the database.`))
     next(error)
@@ -45,6 +47,7 @@ app.delete('/:id', async (req, res, next) => {
 
 app.put('/:id', async (req, res, next) => {
   try {
+    if (!req.session.admin) res.sendStatus(403)
     const updated = await Products.update(
       req.body,
       {
@@ -54,6 +57,7 @@ app.put('/:id', async (req, res, next) => {
       }
     )
     console.log(green(`Updated ${updated.name} successfully in the database!`))
+    res.send(updated)
   } catch (error) {
     console.log(red(`Can't delete product with id: ${req.params.id} from the database.`))
     next(error)
@@ -62,8 +66,10 @@ app.put('/:id', async (req, res, next) => {
 
 app.post('/:id', async (req, res, next) => {
   try {
+    if (!req.session.admin) res.sendStatus(403)
     const created = await Products.create(req.body)
     console.log(green(`Created ${created.name} successfully in the database!`))
+    res.send(created)
   } catch (error) {
     console.log(red(`Can't create ${req.body.name} in the database!`))
     next(error)
