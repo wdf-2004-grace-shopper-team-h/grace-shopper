@@ -31,7 +31,10 @@ app.get('/:id', async (req, res, next) => {
 
 app.delete('/:id', async (req, res, next) => {
   try {
-    if (!req.session.admin) res.sendStatus(403)
+    if (!req.session.admin) {
+      console.log(red('ACCESS DENIED!'))
+      res.sendStatus(403)
+    }
     const destroyed = await Products.destroy({
       where: {
         id: req.params.id
@@ -47,7 +50,10 @@ app.delete('/:id', async (req, res, next) => {
 
 app.put('/:id', async (req, res, next) => {
   try {
-    if (!req.session.admin) res.sendStatus(403)
+    if (!req.session.admin) {
+      console.log(red('ACCESS DENIED!'))
+      res.sendStatus(403)
+    }
     const updated = await Products.update(
       req.body,
       {
@@ -66,7 +72,10 @@ app.put('/:id', async (req, res, next) => {
 
 app.post('/:id', async (req, res, next) => {
   try {
-    if (!req.session.admin) res.sendStatus(403)
+    if (!req.session.admin) {
+      console.log(red('ACCESS DENIED!'))
+      res.sendStatus(403)
+    }
     const created = await Products.create(req.body)
     console.log(green(`Created ${created.name} successfully in the database!`))
     res.send(created)
