@@ -41,7 +41,7 @@ app.delete('/:id', async (req, res, next) => {
       }
     })
     console.log(green(`Deleted ${destroyed.name} successfully from the database!`))
-    res.send(destroyed)
+    res.json(destroyed)
   } catch (error) {
     console.log(red(`Can't delete product with id: ${req.params.id} from the database.`))
     next(error)
@@ -63,7 +63,7 @@ app.put('/:id', async (req, res, next) => {
       }
     )
     console.log(green(`Updated ${updated.name} successfully in the database!`))
-    res.send(updated)
+    res.json(updated)
   } catch (error) {
     console.log(red(`Can't delete product with id: ${req.params.id} from the database.`))
     next(error)
@@ -78,7 +78,7 @@ app.post('/:id', async (req, res, next) => {
     }
     const created = await Products.create(req.body)
     console.log(green(`Created ${created.name} successfully in the database!`))
-    res.send(created)
+    res.json(created)
   } catch (error) {
     console.log(red(`Can't create ${req.body.name} in the database!`))
     next(error)
