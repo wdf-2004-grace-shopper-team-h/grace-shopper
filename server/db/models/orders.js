@@ -10,7 +10,7 @@ module.exports = db.define('order', {
   priceTotal: {
     type: Sequelize.INTEGER
   },
-  completed: {
+  isCompleted: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   }

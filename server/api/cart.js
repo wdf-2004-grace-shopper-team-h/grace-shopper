@@ -4,44 +4,47 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    // const user = await User.findByPk({
-    //   where: {
-    //     id: req.session.userId
-    //   }
-    // })
-
-    const currOrder = await OrderProducts.findAll({
-      // gives us OrderId, ProductId, numofItems
+    // find incompleted order for cart
+    // if it doesn't exist we're going to create a new order instance
+    const mostRecentOrder = await Orders.findOne({
       where: {
-        userId: req.session.userId
+        userId: req.session.userId,
+        completed: false
+      }
+    })
+
+    //else find orderId
+    const orderId = mostRecentOrder.id
+    //then find all order_products
+    const currOrder = await OrderProducts.findAll({
+      where: {
+        orderId: orderId
       },
       order: [['createdAt', 'DESC']]
-      //last orderId that also had userId
     })
+    //get productIds from order_products to get product info
     const productIds = currOrder.filter(ele => ele.productId)
-
-    const subTotal = await Orders.findByPk(currOrder[0].orderId)
-
+    //get products thru productIds
     const products = await Products.findAll({
-      where: {
-        id: {
-          [Sequelize.Op.in]: [...productIds]
+      include: {
+        model: OrderProducts,
+        where: {
+          id: {
+            [Sequelize.Op.in]: [...productIds]
+          }
         }
       }
     })
-    /* products - imageUrl, name, price
-      orderProducts - num of Items, orderId, productId 
-      orders - total
 
-
-      orderProducts = [{numItems, orderId, productId}]
-      subTotal = [{priceTotal}] 
-      products = []
+    //now we have
+    /* 
+      orderProducts - [{num of Items, productId}]
+      products = [{imageUrl, name, price, productId}]
     */
+    //
+    // product.name, product.price, product.imgUrl
 
-    // product.name, product.price, product.imgUrl, order.total
-
-    const sendInfo = []
+    let sendProducts = []
 
     res.status(200).json()
   } catch (err) {

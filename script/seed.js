@@ -22,19 +22,23 @@ async function seed() {
   const orders = await Promise.all([
     Orders.create({
       userId: 1,
-      total: 3000
+      total: 3000,
+      isCompleted: true
     }),
     Orders.create({
       userId: 2,
-      total: 3400
+      total: 3400,
+      isCompleted: true
+    }),
+    Orders.create({
+      userId: 2,
+      total: 22000,
+      isCompleted: false
     }),
     Orders.create({
       userId: 1,
-      total: 22000
-    }),
-    Orders.create({
-      userId: 1,
-      total: 5000
+      total: 5000,
+      isCompleted: false
     })
   ])
 
