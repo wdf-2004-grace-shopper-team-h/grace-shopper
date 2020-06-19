@@ -14,41 +14,38 @@ router.get('/', async (req, res, next) => {
       }
     })
 
+    const orderProducts = await mostRecentOrder.getOrderProductQuantity()
     // //else find orderId
     const orderId = mostRecentOrder.id
+    // console.log('-----------------',products, '------------------', orderProducts)
 
     // //then find all order_products
-    const currOrder = await OrderProducts.findAll({
-      where: {
-        orderId: orderId
-      },
-      order: [['createdAt', 'DESC']]
-    })
-    // //get productIds from order_products to get product info
-    const productIds = currOrder.map(ele => ele.dataValues.productId)
-    const products = await Products.findAll({
-      // include: {
-      //   model: OrderProducts,
-      where: {
-        id: {
-          [Op.in]: [...productIds]
-        }
-      }
-      // }
-    })
-    // console.log(currOrder)
+    const products = await mostRecentOrder.getProducts()
+    console.log(
+      '-----------------',
+      products,
+      '------------------',
+      orderProducts
+    )
+
+    // function orderDetails (products, orderProducts){
+    //     //[...{'taboo', imgurl, productId:3}]   orderProducts [...{productId: 3,quantity:3} ]
+    //     const orderProduct.map(ele => ele.numberOfItems)
+    //  {orderId: orderId, products: [], }
+    //   return objectToSend
+    // }
 
     //now we have
     /* 
-      orderProducts - [{num of Items, productId}]
-      products = [{imageUrl, name, price, productId}]
+      orderProducts - [{num of Items, productId, orderId}]
+      products = [{imageUrl, name, price, productId}] 
     */
     //
     // product.name, product.price, product.imgUrl
 
     let sendProducts = []
 
-    res.status(200).json(products)
+    res.status(200).json(mostRecentOrder)
   } catch (err) {
     next(err)
   }

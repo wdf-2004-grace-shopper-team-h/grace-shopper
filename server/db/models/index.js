@@ -10,10 +10,11 @@ const OrderProducts = require('./orderProducts')
 
 //Belongs to Many association with Options
 
-Orders.belongsToMany(Products, {through: 'order_products'})
-Products.belongsToMany(Orders, {through: 'order_products'})
+Orders.belongsToMany(Products, {through: OrderProducts})
+Products.belongsToMany(Orders, {through: OrderProducts})
 User.hasMany(Orders)
-
+// OrderProducts.hasMany(Orders)
+// OrderProducts.hasMany(Products)
 // OrderProducts.belongsToMany(Orders)
 
 // OrderProducts.belongsToMany(Products)
