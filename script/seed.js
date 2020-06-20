@@ -15,8 +15,17 @@ async function seed() {
   // )])
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({email: 'cody1@email.com', password: '123'}),
+    User.create({email: 'murphy1@email.com', password: '123'}),
+    User.create({email: 'grouph@graceshopp.er', password: 'grouph123'}),
+    User.create({email: 'cody2@email.com', password: '123'}),
+    User.create({email: 'murphy2@email.com', password: '123'}),
+    User.create({email: 'cody3@email.com', password: '123'}),
+    User.create({email: 'murphy3@email.com', password: '123'}),
+    User.create({email: 'cody4@email.com', password: '123'}),
+    User.create({email: 'murphy4@email.com', password: '123'}),
+    User.create({email: 'cody5@email.com', password: '123'}),
+    User.create({email: 'murphy5@email.com', password: '123'})
   ])
 
   const order1 = await Orders.create({
