@@ -19,8 +19,8 @@ export const addItemToCart = (productId, quantity) => ({
 
 const defaultItems = []
 //what is this trying to get?
-//to get all cart items when a user get to their cart page, it should display all items.
-export const fetchItems = () => async dispatch => {
+//to get the cart  with all items in it when a user gets to their cart page. it should display all items.
+export const fetchCart = () => async dispatch => {
   try {
     const {data} = await axios.get(`/api/cart`)
     dispatch(getItems(data))
