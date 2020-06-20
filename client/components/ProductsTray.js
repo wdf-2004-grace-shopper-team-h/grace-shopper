@@ -1,38 +1,42 @@
 import React from 'react'
 
 const ProductTray = props => {
-  const order = props.products
+  const order = props
+  const products = props.products
   let totalAmount = 0
-  order.map(product => {
-    totalAmount += product.price * product.total_amount
+  products.map(product => {
+    totalAmount += product.price * product.quantitySold
   })
   return (
-    <table>
-      <tbody>
-        <tr>
-          <th>Image</th>
-          <th>Name</th>
-          <th>amout</th>
-          <th>Price</th>
-        </tr>
-        {order.map(product => (
-          <tr key={product.id}>
-            <td>
-              <img src={product.imgUrl} width="200" height="200" />
-            </td>
-            <td>{product.name}</td>
-            <td>{product.total_amount}</td>
-            <td>{product.price * product.total_amount}</td>
+    <div>
+      <h2>Order # {order.id}</h2>
+      <table>
+        <tbody>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
           </tr>
-        ))}
-        <tr>
-          <td colSpan="3" align="right">
-            <b>Subtotal:</b>
-          </td>
-          <td>{totalAmount}</td>
-        </tr>
-      </tbody>
-    </table>
+          {products.map(product => (
+            <tr key={product.id}>
+              <td>
+                <img src={product.imgUrl} width="200" height="200" />
+              </td>
+              <td>{product.name}</td>
+              <td>{product.quantitySold}</td>
+              <td>{product.price * product.quantitySold}</td>
+            </tr>
+          ))}
+          <tr>
+            <td colSpan="3" align="right">
+              <b>Subtotal:</b>
+            </td>
+            <td>{totalAmount}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   )
 }
 
