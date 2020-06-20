@@ -7,7 +7,7 @@ router.get('/', async (req, res, next) => {
   try {
     const mostRecentOrder = await Orders.findOne({
       where: {
-        userId: 1,
+        userId: req.session.userId || 1,
         isCompleted: false
       },
       include: {model: Products}
