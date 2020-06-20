@@ -2,6 +2,9 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+//User is a parent model for Cart and Order.
+//Has methods: setCart and set Order.
+
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
