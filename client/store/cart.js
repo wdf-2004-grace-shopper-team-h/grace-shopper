@@ -23,7 +23,7 @@ const defaultItems = []
 export const fetchCart = () => async dispatch => {
   try {
     const {data} = await axios.get(`/api/cart`)
-    dispatch(getItems(data))
+    dispatch(getItems(data.products))
   } catch (error) {
     console.error(error)
   }
