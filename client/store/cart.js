@@ -1,5 +1,5 @@
 import axios from 'axios'
-import history from '../history'
+//import history from '../history'
 
 const GET_ITEMS_IN_CART = 'GET_ITEMS_IN_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
@@ -32,7 +32,7 @@ export const fetchItems = () => async dispatch => {
 //will grab the id from the product and user quantity on the react end to send here and update the database cart model to include the new item.
 export const putItemInCart = (productId, userQuantity) => async dispatch => {
   try {
-    const res = await axios.put(`/api/cart/${productId}`, userQuantity)
+    await axios.put(`/api/cart/${productId}`, userQuantity)
     dispatch(addItemToCart(productId, userQuantity))
   } catch (error) {
     console.error(error)
@@ -41,7 +41,7 @@ export const putItemInCart = (productId, userQuantity) => async dispatch => {
 
 export default (state = defaultItems, action) => {
   switch (action.type) {
-    case GET_PRODUCTS:
+    case GET_ITEMS_IN_CART:
       return action.items
     case ADD_TO_CART:
       return [...state, action.item]
