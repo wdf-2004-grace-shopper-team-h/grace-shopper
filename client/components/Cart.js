@@ -12,7 +12,7 @@ class Cart extends React.Component {
     // if (id) fetchCart(id)
     // else if (localStorage.getItem('cart'))
     //   getCart(JSON.parse(localStorage.getItem('cart')))
-    this.props.fetchCart()
+    this.props.fetchCart() //Needs to change when we get the correct user
   }
   render() {
     return this.props.cart.length ? (
@@ -26,7 +26,7 @@ const mapState = state => ({
   cart: state.cart
 })
 const mapDispatch = dispatch => ({
-  fetchCart: () => dispatch(fetchCart())
+  fetchCart: () => dispatch(fetchCart()) //needs to change to accomodate the current user logged in.
   //getCArt: cart => dispatch(getCArt(cart))
 })
 export default connect(mapState, mapDispatch)(Cart)
