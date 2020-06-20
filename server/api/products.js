@@ -6,7 +6,7 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Orders.findAll()
+    const products = await Products.findAll()
     res.status(200).json(products)
     console.log(green('Fetch all products Success!'))
   } catch (err) {
