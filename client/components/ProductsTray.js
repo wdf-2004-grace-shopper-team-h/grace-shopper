@@ -1,15 +1,17 @@
 import React from 'react'
 
 const ProductTray = props => {
-  const order = props
+  const order = props.order
   const products = props.products
+
   let totalAmount = 0
-  products.map(product => {
-    totalAmount += product.price * product.quantitySold
+  order.map(item => {
+    totalAmount += item.product.price * item.numberOfItems
   })
+
   return (
     <div>
-      <h2>Order # {order.id}</h2>
+      <h2>Order # {order[0].orderId}</h2>
       <table>
         <tbody>
           <tr>
@@ -18,14 +20,14 @@ const ProductTray = props => {
             <th>Quantity</th>
             <th>Price</th>
           </tr>
-          {products.map(product => (
-            <tr key={product.id}>
+          {order.map(item => (
+            <tr key={item.productId}>
               <td>
-                <img src={product.imgUrl} width="200" height="200" />
+                <img src={item.product.imgUrl} width="200" height="200" />
               </td>
-              <td>{product.name}</td>
-              <td>{product.quantitySold}</td>
-              <td>{product.price * product.quantitySold}</td>
+              <td>{item.product.name}</td>
+              <td>{item.numberOfItems}</td>
+              <td>{item.product.price * item.numberOfItems}</td>
             </tr>
           ))}
           <tr>
@@ -38,6 +40,7 @@ const ProductTray = props => {
       </table>
     </div>
   )
+  //return <div/>
 }
 
 export default ProductTray
