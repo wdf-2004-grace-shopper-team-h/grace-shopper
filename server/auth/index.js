@@ -12,7 +12,7 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
-      if (req.body.email === 'grouph@graceshopp.er') {
+      if (req.body.isAdmin === true) {
         req.session.admin = true
       }
       req.login(user, err => (err ? next(err) : res.json(user)))
