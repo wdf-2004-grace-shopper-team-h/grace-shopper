@@ -12,7 +12,7 @@ class Cart extends React.Component {
     // if (id) fetchCart(id)
     // else if (localStorage.getItem('cart'))
     //   getCart(JSON.parse(localStorage.getItem('cart')))
-    this.props.fetchCart() //Needs to change when we get the correct user
+    //this.props.fetchCart() //Needs to change when we get the correct user
   }
   render() {
     return this.props.cart.length ? (
