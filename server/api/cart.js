@@ -23,6 +23,34 @@ router.get('/', async (req, res, next) => {
     }
     twoDOrder(mostRecentOrder)
 
+    //Pull order products table off the products we queried from the database and make it easier to access.
+    // This method will create an array of objects that contain the order_products data and store it in a variable
+    // let ordersToSend = mostRecentOrder.products
+    //   .map(el => el.dataValues.order_products)
+    //   .map(el => {
+    //     //
+    //     return {
+    //       orderId: el.orderId,
+    //       productId: el.productId,
+    //       numberOfItems: el.numberOfItems,
+    //       priceSold: el.priceSold,
+    //       createdAt: el.createdAt
+    //     }
+    //   }) //O(n^2);
+
+    // // reassign the variable to include the the product that corresponds to the productId from the data queried.
+    // ordersToSend = ordersToSend.map(el => {
+    //   return {
+    //     ...el,
+    //     product: mostRecentOrder.products.filter(
+    //       element =>
+    //         element.dataValues.id === el.productId
+    //           ? {...element.dataValues}
+    //           : null
+    //     )[0].dataValues
+    //   }
+    // }) //O(n^2);
+
     res.status(200).json(mostRecentOrder)
   } catch (err) {
     next(err)
