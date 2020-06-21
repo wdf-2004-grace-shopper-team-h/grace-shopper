@@ -70,7 +70,7 @@ app.put('/:id', async (req, res, next) => {
   }
 })
 
-app.post('/:id', async (req, res, next) => {
+app.post('/', async (req, res, next) => {
   try {
     if (!req.session.admin) {
       console.log(red('ACCESS DENIED!'))
