@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const {green, red} = require('chalk')
-const Products = require('../db/models/products')
-const {OrderProducts, Orders} = require('../db/models/')
+const {OrderProducts, Orders, Products} = require('../db/models/')
 module.exports = router
 
 router.get('/', async (req, res, next) => {

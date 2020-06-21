@@ -7,6 +7,11 @@ class Cart extends React.Component {
   constructor(props) {
     super(props)
   }
+
+  handleOnClick = () => event => {
+    this.props.history.push('/checkout')
+  }
+
   componentDidMount() {
     // const id = this.props.user.id
     // if (id) fetchCart(id)
