@@ -1,0 +1,4 @@
+diff a/client/store/index.js b/client/store/index.js	(rejected hunks)
+@@ -27 +27 @@ const store = createStore(reducer, persistedState, middleware)
+-store.subscribe(()=> saveToLocalStorage(store.getState()));
++store.subscribe(() => saveToLocalStorage(store.getState()))

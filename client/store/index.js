@@ -24,7 +24,11 @@ const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
 const store = createStore(reducer, persistedState, middleware)
-store.subscribe(() => saveToLocalStorage(store.getState()))
+store.subscribe(() =>
+  saveToLocalStorage({
+    cart: store.getState().cart
+  })
+)
 
 export default store
 export * from './user'
