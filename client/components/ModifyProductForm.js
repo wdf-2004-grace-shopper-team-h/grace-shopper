@@ -4,7 +4,7 @@ const ModifyProductForm = props => {
   const product = props.stuff
   return (
     <center>
-      <form id="admin_form" onSubmit={props.handleOnClick} width="500px">
+      <form id="admin_form" onSubmit={props.onClickFunc} width="500px">
         <label htmlFor="name">Name:</label>
 
         <input

@@ -31,10 +31,6 @@ router.get('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    if (!req.session.admin) {
-      console.log(red('ACCESS DENIED!'))
-      res.sendStatus(403)
-    }
     const destroyed = await Products.destroy({
       where: {
         id: req.params.id
@@ -43,6 +39,7 @@ router.delete('/:id', async (req, res, next) => {
     console.log(
       green(`Deleted ${destroyed.name} successfully from the database!`)
     )
+
     res.json(destroyed)
   } catch (error) {
     console.log(
@@ -54,10 +51,6 @@ router.delete('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    if (!req.session.admin) {
-      console.log(red('ACCESS DENIED!'))
-      res.sendStatus(403)
-    }
     const updated = await Products.update(req.body, {
       where: {
         id: req.params.id
@@ -73,15 +66,11 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/create_new_product', async (req, res, next) => {
   try {
-    if (!req.session.admin) {
-      console.log(red('ACCESS DENIED!'))
-      res.sendStatus(403)
-    }
-    const created = await Products.create(req.body)
-    console.log(green(`Created ${created.name} successfully in the database!`))
-    res.json(created)
+    console.log(req.body)
+    await Products.create(req.body).then(product => res.json(product))
+    //  console.log(green(`Created ${created.name} successfully in the database!`))
   } catch (error) {
     console.log(red(`Can't create ${req.body.name} in the database!`))
     next(error)
