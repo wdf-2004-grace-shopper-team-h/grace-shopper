@@ -7,7 +7,7 @@ router.get('/', async (req, res, next) => {
   try {
     const mostRecentOrder = await Orders.findOne({
       where: {
-        userId: 1,
+        userId: req.session.userId || 1,
         isCompleted: false
       },
       include: {model: Products}
@@ -19,7 +19,6 @@ router.get('/', async (req, res, next) => {
           (product.dataValues.quantitySold =
             product.order_products.numberOfItems)
       )
-      console.log(order.products)
     }
     twoDOrder(mostRecentOrder)
 
@@ -56,6 +55,7 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
 //if id doesnt match id in store send post request
 //if does then put request
 //find one where user Id's match and includes cart
