@@ -15,7 +15,8 @@ async function seed() {
   // )])
 
   const users = await Promise.all([
-    User.create({email: 'cody1@email.com', password: '123'}),
+
+    User.create({email: 'cody1@email.com', password: '123',admin: true}),
     User.create({email: 'murphy1@email.com', password: '123'}),
     User.create({
       email: 'admin12@graceshopp.er',
@@ -35,6 +36,7 @@ async function seed() {
     User.create({email: 'murphy4@email.com', password: '123'}),
     User.create({email: 'cody5@email.com', password: '123'}),
     User.create({email: 'murphy5@email.com', password: '123'})
+
   ])
 
   const order1 = await Orders.create({
@@ -63,7 +65,7 @@ async function seed() {
 
   const sorry = await Products.create({
     name: 'Sorry!',
-    amount: 20,
+    inventoryAmount: 20,
     price: 999,
     description: `Slide, collide and score to win the game of Sorry! Draw cards to see how far you get to move one of your pawns on the board. If you land on a Slide you can zip to the end and bump your opponents' pawns  or your own! Jump over pawns and hide in your Safety zone while getting powers with the 2 power-up tokens. Keep on moving and bumping until you get all three of your pawns from your color Start to your color Home. But watch out, because if you get bumped, Sorry! It's all the way back to Start!
       \nIncludes gameboard, 12 Sorry! Pawns, 44 cards, 2 power-up tokens and instructions.
@@ -79,7 +81,7 @@ async function seed() {
   })
   const monopoly = await Products.create({
     name: 'Monopoly',
-    amount: 20,
+    inventoryAmount: 0,
     price: 1999,
     description: `This version of the Monopoly game welcomes the Rubber Ducky, Tyrannosaurus Rex, and Penguin into its family of tokens. Choose your token, place it on GO! and roll the dice to own it all! There can be only one winner in the Monopoly game. Will it be you?
 
@@ -96,7 +98,7 @@ async function seed() {
   })
   const taboo = await Products.create({
     name: 'Taboo',
-    amount: 20,
+    inventoryAmount: 20,
     price: 1499,
     description: `It's the exciting Taboo game that keeps players on the edge of their seats! Players try to get teammates to say the Guess word on the card without using any of the Taboo words in the clues. If the describer says a Taboo word listed on the card while giving the clues, they'll get interrupted with the electronic buzzer and lose a turn. Players keep the cards that were guessed correctly, and the team with the most cards wins the game. With 400 double-sided cards in this Taboo game, players will have plenty of words to choose from as they race against the clock to give teammates the best descriptions and clues possible.
 
@@ -114,7 +116,7 @@ async function seed() {
   })
   const unoTin = await Products.create({
     name: 'Uno Tin',
-    amount: 20,
+    inventoryAmount: 20,
     price: 999,
     description: `​UNO™ is the classic family card game that's easy to pick up and impossible to put down! Players take turns matching a card in their hand with the current card shown on top of the deck either by color or number. Special action cards, like Skips, Reverses, Draw Twos, color-changing Wild and Draw Four Wild cards, deliver game-changing moments as they each perform a function to help you defeat your opponents. If you can't make a match, you must draw from the center pile. And when you're down to one card, don't forget to shout "UNO!" The first player to get rid of all the cards in their hand wins. Now card game-lovers can get UNO™ in a sturdy tin that's great for travel and makes storage stress-free. Colors and decorations may vary.
 
@@ -128,7 +130,7 @@ async function seed() {
   })
   const mouseTrap = await Products.create({
     name: 'Mouse Trap',
-    amount: 20,
+    inventoryAmount: 20,
     price: 1999,
     description: `The Mouse Trap game, a longtime family favorite, is always good for zany action and lots of laughs. Scurry around the board collecting cheese and stealing cheese from other players&but watch out for the trap! While kids are engaged in playing the Mouse Trap game, they can also practice valuable skills in construction, cause and effect, and decision-making. As they interact with the trap, a working, multi-part machine, kids can practice construction skills. They can also work on understanding cause and effect as they understand that each action causes a reaction. And players can practice decision making as they analyze the situation and determine the next best step. Most importantly, kids can have so much fun playing this wacky game!
 
