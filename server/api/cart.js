@@ -64,7 +64,6 @@ router.post('/', async (req, res, next) => {
       productId: req.body.productId,
       numberOfItems: req.body.numberOfItems
     })
-    console.log(cart)
     res.json(cart) //for testing purposes. Should change to a res.status 201 when done
   } catch (error) {
     next(error)

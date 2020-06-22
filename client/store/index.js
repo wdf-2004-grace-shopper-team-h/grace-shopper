@@ -6,6 +6,7 @@ import user from './user'
 import products from './products'
 import cart from './cart'
 import singleProduct from './singleProduct'
+import numberOfItems from './numberOfItems'
 
 //Adding local storage to the redux store
 
@@ -21,7 +22,13 @@ function loadFromLocalStorage() {
 }
 
 const persistedCart = loadFromLocalStorage()
-const reducer = combineReducers({user, products, cart, singleProduct})
+const reducer = combineReducers({
+  user,
+  products,
+  cart,
+  singleProduct,
+  numberOfItems
+})
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

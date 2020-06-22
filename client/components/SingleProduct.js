@@ -8,12 +8,15 @@ import {
 } from '../store/singleProduct'
 import {pushProduct} from '../store/cart'
 import {me} from '../store/user'
+import {setNumItems} from '../store/numberOfItems'
+
 export class SingleProduct extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id
     this.props.getProduct(id)
     this.props.getUser()
     this.addToCartTest = this.addToCartTest.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleOnClick = params => event => {}
@@ -39,6 +42,10 @@ export class SingleProduct extends React.Component {
     await this.props.pushProduct(this.props.product.id)
   }
 
+  handleChange(event) {
+    this.props.setNumItems(Number(event.target.value))
+  }
+
   render() {
     if (this.props.user.admin) {
       this.props.history.push(`/admin_product/${this.props.match.params.id}`)
@@ -51,7 +58,7 @@ export class SingleProduct extends React.Component {
         <img src={product.imgUrl} width="300" height="300" />
         <p>{product.description}</p>
         <p>price: {product.price / 100}</p>
-        <select defaultValue={1}>
+        <select defaultValue={1} onChange={this.handleChange}>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -86,7 +93,8 @@ const mapDispatch = dispatch => {
     modifyProduct: (id, obj) => dispatch(modifyProduct(id, obj)),
     getProduct: id => dispatch(fetchProduct(id)),
     getUser: () => dispatch(me()),
-    pushProduct: productId => dispatch(pushProduct(productId))
+    pushProduct: productId => dispatch(pushProduct(productId)),
+    setNumItems: num => dispatch(setNumItems(num))
   }
 }
 
