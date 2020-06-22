@@ -12,7 +12,7 @@ const defaultProduct = []
 
 export const fetchProduct = id => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/product/${id}`)
+    const {data} = await axios.get(`/api/products/${id}`)
     dispatch(getProduct(data))
   } catch (error) {
     console.error(error)
@@ -20,7 +20,7 @@ export const fetchProduct = id => async dispatch => {
 }
 export const deleteProduct = async id => {
   try {
-    await axios.delete(`/api/product/${id}`)
+    await axios.delete(`/api/products/${id}`)
     //add history push here or on front?
   } catch (error) {
     console.error(error)
@@ -28,7 +28,7 @@ export const deleteProduct = async id => {
 }
 export const modifyProduct = (id, obj) => async dispatch => {
   try {
-    const {data} = await axios.put(`/api/product/${id}`, obj)
+    const {data} = await axios.put(`/api/products/${id}`, obj)
     dispatch(getProduct(data))
   } catch (error) {
     console.error(error)

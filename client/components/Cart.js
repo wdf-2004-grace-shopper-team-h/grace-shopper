@@ -20,6 +20,7 @@ class Cart extends React.Component {
     this.props.fetchCart() //Needs to change when we get the correct user
   }
   render() {
+    console.log(this.props)
     return this.props.cart.length ? (
       <ProductsTray order={this.props.cart} />
     ) : (

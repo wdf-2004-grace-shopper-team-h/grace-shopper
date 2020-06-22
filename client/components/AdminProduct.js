@@ -6,12 +6,9 @@ import {
   deleteProduct,
   modifyProduct
 } from '../store/singleProduct'
-import {me} from '../store/user'
-export class SingleProduct extends React.Component {
+export class AdminProduct extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id
-    this.props.getProduct(id)
-    this.props.getUser()
   }
 
   handleOnClick = params => event => {}
@@ -30,7 +27,7 @@ export class SingleProduct extends React.Component {
 
   render() {
     if (this.props.user.admin) {
-      this.props.history.push('/admin_product')
+      this.props.history.push('/')
     }
     const product = this.props.product
     // return <h1>Loading...</h1>
@@ -61,10 +58,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     deleteProduct: id => dispatch(deleteProduct(id)),
-    modifyProduct: (id, obj) => dispatch(modifyProduct(id, obj)),
-    getProduct: id => dispatch(fetchProduct(id)),
-    getUser: () => dispatch(me())
+    modifyProduct: (id, obj) => dispatch(modifyProduct(id, obj))
   }
 }
 
-export default connect(mapState, mapDispatch)(SingleProduct)
+export default connect(mapState, mapDispatch)(AdminProduct)
