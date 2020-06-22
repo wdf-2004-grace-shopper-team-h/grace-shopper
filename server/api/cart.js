@@ -13,15 +13,15 @@ router.get('/', async (req, res, next) => {
       include: {model: Products}
     })
 
-    // const twoDOrder = order => {
-    //   order.products.map(
-    //     product =>
-    //       (product.dataValues.quantitySold =
-    //         product.order_products.numberOfItems)
-    //   )
-    //   console.log(order.products)
-    // }
-    // twoDOrder(mostRecentOrder)
+    const twoDOrder = order => {
+      order.products.map(
+        product =>
+          (product.dataValues.quantitySold =
+            product.order_products.numberOfItems)
+      )
+      console.log(order.products)
+    }
+    twoDOrder(mostRecentOrder)
 
     //Pull order products table off the products we queried from the database and make it easier to access.
     // This method will create an array of objects that contain the order_products data and store it in a variable
