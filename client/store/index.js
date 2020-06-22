@@ -7,28 +7,34 @@ import products from './products'
 import cart from './cart'
 
 //Adding local storage to the redux store
-function saveToLocalStorage(state) {
-  const serializedState = JSON.stringify(state)
-  localStorage.setItem('state', serializedState)
+
+function saveToLocalStorage(cart) {
+  const serializedCart = JSON.stringify(cart)
+  localStorage.setItem('cart', serializedCart)
 }
 
 function loadFromLocalStorage() {
-  const serializedState = localStorage.getItem('state')
-  if (serializedState === null) return undefined
-  return JSON.parse(serializedState)
+  const serializedCart = localStorage.getItem('cart')
+  if (serializedCart === null) return undefined
+  return JSON.parse(serializedCart)
 }
 
-const persistedState = loadFromLocalStorage()
+const persistedCart = loadFromLocalStorage()
 const reducer = combineReducers({user, products, cart})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
-const store = createStore(reducer, persistedState, middleware)
-store.subscribe(() =>
-  saveToLocalStorage({
-    cart: store.getState().cart
-  })
-)
+const store = createStore(reducer, persistedCart, middleware)
+
+if (!window.localStorage.getItem('isLoggedIn')) {
+  console.log('User not logged in!')
+
+  store.subscribe(() =>
+    saveToLocalStorage({
+      cart: store.getState().cart
+    })
+  )
+}
 
 export default store
 export * from './user'

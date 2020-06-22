@@ -54,6 +54,7 @@ export const logout = () => async dispatch => {
     dispatch(removeUser())
 
     window.localStorage.removeItem('isLoggedIn')
+    window.localStorage.removeItem('cart')
     console.log(window.localStorage.getItem('isLoggedIn'))
     history.push('/login')
   } catch (err) {
