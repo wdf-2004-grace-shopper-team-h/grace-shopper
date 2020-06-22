@@ -7,6 +7,11 @@ class Cart extends React.Component {
   constructor(props) {
     super(props)
   }
+
+  handleOnClick = () => event => {
+    this.props.history.push('/checkout')
+  }
+
   componentDidMount() {
     if (window.localStorage.getItem('isLoggedIn')) {
       this.props.fetchCart()
