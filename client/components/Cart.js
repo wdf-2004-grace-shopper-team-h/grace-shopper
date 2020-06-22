@@ -15,10 +15,11 @@ class Cart extends React.Component {
     this.props.fetchCart() //Needs to change when we get the correct user
   }
   render() {
-    return this.props.cart.length ? (
+    console.log('props', this.props)
+    return this.props.cart.products ? (
       <ProductsTray order={this.props.cart} />
     ) : (
-      <div />
+      <div> Nothing here! Check out our selection :D </div>
     )
   }
 }
