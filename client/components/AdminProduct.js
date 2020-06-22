@@ -6,9 +6,21 @@ import {
   deleteProduct,
   modifyProduct
 } from '../store/singleProduct'
+import ModifyProductForm from './ModifyProductForm'
+
 export class AdminProduct extends React.Component {
-  componentDidMount() {
-    const id = this.props.match.params.id
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: '',
+      inventoryAmount: 0,
+      price: 0,
+      imgUrl: '',
+      description: ''
+    }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleOnClick = this.handleOnClick.bind(this)
   }
 
   handleOnClick = params => event => {}
@@ -23,35 +35,32 @@ export class AdminProduct extends React.Component {
     }
   }
 
-  handlrOnClickAddToCart = () => event => {}
+  handleChange(event) {
+    console.log(event.target.name)
+    // this.setState({ [event.target.name]: event.target.value })
+  }
 
   render() {
-    if (this.props.user.admin) {
-      this.props.history.push('/')
-    }
     const product = this.props.product
-    // return <h1>Loading...</h1>
-    return (
-      <div className="singleProduct" key={product.id}>
-        <h4>{product.name}</h4>
-        <img src={product.imgUrl} width="300" height="300" />
-        <p>{product.description}</p>
-        <p>price: {product.price / 100}</p>
-        {product.inventoryAmount > 0 ? 'In Stock \n' : 'Out of Stock'}
-        {product.inventoryAmount > 0 ? (
-          <button onClick={this.handlrOnClickAddToCart()}>Add to cart</button>
-        ) : (
-          <p />
-        )}
-      </div>
-    )
+
+    if (!product.id) {
+      return <h1>Loading...</h1>
+    } else {
+      return (
+        <ModifyProductForm
+          stuff={product}
+          forChange={this.state}
+          onChangeFunc={this.handleChange}
+          onClickFunc={this.handleOnClick}
+        />
+      )
+    }
   }
 }
 
 const mapState = state => {
   return {
-    product: state.singleProduct,
-    user: state.user
+    product: state.singleProduct
   }
 }
 

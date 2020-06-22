@@ -30,7 +30,7 @@ export class SingleProduct extends React.Component {
 
   render() {
     if (this.props.user.admin) {
-      this.props.history.push('/admin_product')
+      this.props.history.push(`/admin_product/${this.props.match.params.id}`)
     }
     const product = this.props.product
     // return <h1>Loading...</h1>
