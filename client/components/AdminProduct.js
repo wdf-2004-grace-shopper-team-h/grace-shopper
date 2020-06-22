@@ -66,12 +66,21 @@ export class AdminProduct extends React.Component {
       return <h1>Loading...</h1>
     } else {
       return (
-        <ModifyProductForm
-          stuff={this.state}
-          onChangeFunc={this.handleChange}
-          onClickFunc={this.handleOnClickSubmit}
-          onClickDelete={this.handleOnClickRemove}
-        />
+        <div>
+          <center>
+            <h3>Modify Product</h3>
+          </center>
+          <ModifyProductForm
+            stuff={this.state}
+            onChangeFunc={this.handleChange}
+            onClickFunc={this.handleOnClickSubmit}
+          />
+          <center>
+            <button onClick={this.handleOnClickRemove}>
+              Delete This Product.
+            </button>
+          </center>
+        </div>
       )
     }
   }
