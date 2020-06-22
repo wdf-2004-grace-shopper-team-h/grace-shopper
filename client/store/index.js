@@ -9,8 +9,8 @@ import singleProduct from './singleProduct'
 
 //Adding local storage to the redux store
 
-function saveToLocalStorage(cart) {
-  const serializedCart = JSON.stringify(cart)
+function saveToLocalStorage(cartState) {
+  const serializedCart = JSON.stringify(cartState)
   localStorage.setItem('cart', serializedCart)
 }
 
