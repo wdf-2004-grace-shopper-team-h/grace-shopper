@@ -54,10 +54,6 @@ router.delete('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    if (!req.session.admin) {
-      console.log(red('ACCESS DENIED!'))
-      res.sendStatus(403)
-    }
     const updated = await Products.update(req.body, {
       where: {
         id: req.params.id

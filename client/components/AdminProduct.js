@@ -19,7 +19,7 @@ export class AdminProduct extends React.Component {
       description: ''
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleOnClick = this.handleOnClick.bind(this)
+    this.handleOnClickSubmit = this.handleOnClickSubmit.bind(this)
   }
 
   async componentDidMount() {
@@ -34,16 +34,14 @@ export class AdminProduct extends React.Component {
     })
   }
 
-  handleOnClick(event) {
+  handleOnClickSubmit(event) {
     event.preventDefault()
-    console.log(this.state)
-    // const id = this.props.match.params.id
-    // try {
-    //     this.props.modifyProduct(id, this.state)
-    // } catch (err) {
-    //     console.log('Modify product reject', err)
-    // }
-    // event.preventDefault();
+    const id = this.props.match.params.id
+    try {
+      this.props.modifyProduct(id, this.state)
+    } catch (err) {
+      console.log('Modify product reject', err)
+    }
   }
 
   //delete
@@ -58,18 +56,18 @@ export class AdminProduct extends React.Component {
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
+    console.log('after change', this.state)
   }
 
   render() {
     if (!this.state.name) {
       return <h1>Loading...</h1>
     } else {
-      console.log('state: ', !!this.state.name)
       return (
         <ModifyProductForm
           stuff={this.state}
           onChangeFunc={this.handleChange}
-          onClickFunc={this.handleOnClick}
+          onClickFunc={this.handleOnClickSubmit}
         />
       )
     }
