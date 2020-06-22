@@ -20,6 +20,7 @@ export class AdminProduct extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleOnClickSubmit = this.handleOnClickSubmit.bind(this)
+    this.handleOnClickRemove = this.handleOnClickRemove.bind(this)
   }
 
   async componentDidMount() {
@@ -45,10 +46,12 @@ export class AdminProduct extends React.Component {
   }
 
   //delete
-  handleOnClickRemove = id => event => {
+  handleOnClickRemove = async event => {
     event.preventDefault()
+    const id = this.props.match.params.id
     try {
-      this.props.deleteProduct(id)
+      await this.props.deleteProduct(id)
+      this.props.history.push('/products')
     } catch (err) {
       console.log('Auchtung!!', err)
     }
@@ -56,7 +59,6 @@ export class AdminProduct extends React.Component {
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
-    console.log('after change', this.state)
   }
 
   render() {
@@ -68,6 +70,7 @@ export class AdminProduct extends React.Component {
           stuff={this.state}
           onChangeFunc={this.handleChange}
           onClickFunc={this.handleOnClickSubmit}
+          onClickDelete={this.handleOnClickRemove}
         />
       )
     }
@@ -82,7 +85,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    deleteProduct: id => dispatch(deleteProduct(id)),
+    deleteProduct: id => deleteProduct(id),
     modifyProduct: (id, obj) => dispatch(modifyProduct(id, obj)),
     getProduct: id => dispatch(fetchProduct(id))
   }

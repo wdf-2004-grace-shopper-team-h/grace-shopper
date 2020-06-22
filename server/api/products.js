@@ -31,10 +31,6 @@ router.get('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    if (!req.session.admin) {
-      console.log(red('ACCESS DENIED!'))
-      res.sendStatus(403)
-    }
     const destroyed = await Products.destroy({
       where: {
         id: req.params.id
@@ -43,6 +39,7 @@ router.delete('/:id', async (req, res, next) => {
     console.log(
       green(`Deleted ${destroyed.name} successfully from the database!`)
     )
+
     res.json(destroyed)
   } catch (error) {
     console.log(

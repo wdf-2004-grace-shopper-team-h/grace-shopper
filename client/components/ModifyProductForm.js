@@ -51,6 +51,7 @@ const ModifyProductForm = props => {
         />
 
         <button type="submit">Submit</button>
+        <button onClick={props.onClickDelete}>Delete This Product.</button>
       </form>
     </center>
   )
