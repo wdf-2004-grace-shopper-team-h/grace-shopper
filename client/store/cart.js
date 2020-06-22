@@ -17,14 +17,15 @@ export const addItemToCart = (productId, quantity) => ({
   }
 })
 
-const defaultItems = []
+const defaultItems = {}
 //what is this trying to get?
 //to get the cart  with all items in it when a user gets to their cart page. it should display all items.
 export const fetchCart = () => async dispatch => {
   //will change to accomodate user logged in or not.
   try {
+    // console.log('checking user',req.session.userId)
     const {data} = await axios.get(`/api/cart`)
-    dispatch(getItems(data.products))
+    dispatch(getItems(data))
   } catch (error) {
     console.error(error)
   }
