@@ -1,16 +1,17 @@
 import React from 'react'
 
 const ModifyProductForm = props => {
+  const product = props.stuff
   return (
     <center>
-      <form id="form" onSubmit={props.handleOnClick}>
+      <form id="admin_form" onSubmit={props.handleOnClick} width="500px">
         <label htmlFor="name">Name:</label>
 
         <input
           type="text"
           name="name"
-          onChange={props.handleChange}
-          value={props.name}
+          onChange={props.onChangeFunc}
+          value={product.name}
         />
 
         <label htmlFor="imgUrl">imgUrl:</label>
@@ -18,17 +19,35 @@ const ModifyProductForm = props => {
         <input
           type="text"
           name="imgUrl"
-          onChange={props.handleChange}
-          value={props.imgUrl}
+          onChange={props.onChangeFunc}
+          value={product.imgUrl}
         />
 
         <label htmlFor="description">Description:</label>
 
         <input
-          type="number"
+          type="text"
           name="description"
-          onChange={props.handleChange}
-          value={props.description}
+          onChange={props.onChangeFunc}
+          value={product.description}
+        />
+
+        <label htmlFor="price">Price:</label>
+
+        <input
+          type="number"
+          name="price"
+          onChange={props.onChangeFunc}
+          value={product.price}
+        />
+
+        <label htmlFor="inventoryAmount">Inventory amount:</label>
+
+        <input
+          type="number"
+          name="inventoryAmount"
+          onChange={props.onChangeFunc}
+          value={product.inventoryAmount}
         />
 
         <button type="submit">Submit</button>

@@ -18,12 +18,33 @@ export class AdminProduct extends React.Component {
       imgUrl: '',
       description: ''
     }
-
     this.handleChange = this.handleChange.bind(this)
     this.handleOnClick = this.handleOnClick.bind(this)
   }
 
-  handleOnClick = params => event => {}
+  async componentDidMount() {
+    const id = this.props.match.params.id
+    await this.props.getProduct(id)
+    this.setState({
+      name: this.props.product.name,
+      inventoryAmount: this.props.product.inventoryAmount,
+      price: this.props.product.price,
+      imgUrl: this.props.product.imgUrl,
+      description: this.props.product.description
+    })
+  }
+
+  handleOnClick(event) {
+    event.preventDefault()
+    console.log(this.state)
+    // const id = this.props.match.params.id
+    // try {
+    //     this.props.modifyProduct(id, this.state)
+    // } catch (err) {
+    //     console.log('Modify product reject', err)
+    // }
+    // event.preventDefault();
+  }
 
   //delete
   handleOnClickRemove = id => event => {
@@ -36,20 +57,17 @@ export class AdminProduct extends React.Component {
   }
 
   handleChange(event) {
-    console.log(event.target.name)
-    // this.setState({ [event.target.name]: event.target.value })
+    this.setState({[event.target.name]: event.target.value})
   }
 
   render() {
-    const product = this.props.product
-
-    if (!product.id) {
+    if (!this.state.name) {
       return <h1>Loading...</h1>
     } else {
+      console.log('state: ', !!this.state.name)
       return (
         <ModifyProductForm
-          stuff={product}
-          forChange={this.state}
+          stuff={this.state}
           onChangeFunc={this.handleChange}
           onClickFunc={this.handleOnClick}
         />
@@ -67,7 +85,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     deleteProduct: id => dispatch(deleteProduct(id)),
-    modifyProduct: (id, obj) => dispatch(modifyProduct(id, obj))
+    modifyProduct: (id, obj) => dispatch(modifyProduct(id, obj)),
+    getProduct: id => dispatch(fetchProduct(id))
   }
 }
 
