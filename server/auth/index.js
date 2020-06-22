@@ -17,13 +17,15 @@ router.post('/login', async (req, res, next) => {
       res.status(401).send('Wrong username and/or password')
     } else {
       const orders = user.orders
+      const id = user.id
       if (orders.length) {
-        const lastOrder =
-          user.orders[user.orders.length - 1].dataValues.isCompleted
-        const id = user.id
-        // console.log(orders)
-        if (lastOrder) {
-          await Orders.create({userId: id})
+        //Will append order Id to the session for use later in application.
+        const lastOrder = user.orders[user.orders.length - 1]
+        if (lastOrder.dataValues.isCompleted) {
+          const newOrder = await Orders.create({userId: id})
+          req.session.orderId = newOrder.id
+        } else {
+          req.session.orderId = lastOrder.id
         }
       }
 
@@ -38,8 +40,13 @@ router.post('/login', async (req, res, next) => {
 })
 
 router.post('/signup', async (req, res, next) => {
+  //localStorage cart data may be used here.
   try {
     const user = await User.create(req.body)
+    const currentOrder = await Orders.create({userId: user.id})
+    req.session.userId = user.id
+    req.session.orderId = currentOrder.id
+    console.log(currentOrder)
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
