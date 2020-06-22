@@ -1,5 +1,5 @@
 import axios from 'axios'
-//import history from '../history'
+import history from '../history'
 
 const GET_ITEMS_IN_CART = 'GET_ITEMS_IN_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
@@ -9,12 +9,17 @@ export const getItems = items => ({
   items
 })
 
-export const addItemToCart = (productId, quantity) => ({
+// export const addItemToCart = (productId, numberOfItems) => ({
+//   type: ADD_TO_CART,
+//   item: {
+//     itemId: productId,
+//     numberOfItems
+//   }
+// })
+
+export const addItemToCart = productId => ({
   type: ADD_TO_CART,
-  item: {
-    itemId: productId,
-    quantity
-  }
+  itemId: productId
 })
 
 const defaultItems = {}
@@ -26,6 +31,15 @@ export const fetchCart = () => async dispatch => {
     // console.log('checking user',req.session.userId)
     const {data} = await axios.get(`/api/cart`)
     dispatch(getItems(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const pushProduct = (productId, numberOfItems = 1) => async dispatch => {
+  try {
+    await axios.post('/api/cart', {productId, numberOfItems})
+    history.push('/cart')
   } catch (error) {
     console.error(error)
   }

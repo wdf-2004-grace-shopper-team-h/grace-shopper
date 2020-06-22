@@ -56,6 +56,21 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.post('/', async (req, res, next) => {
+  console.log(req.session)
+  try {
+    const cart = await OrderProducts.create({
+      orderId: req.session.orderId,
+      productId: req.body.productId,
+      numberOfItems: req.body.numberOfItems
+    })
+    console.log(cart)
+    res.json(cart) //for testing purposes. Should change to a res.status 201 when done
+  } catch (error) {
+    next(error)
+  }
+})
+
 //if id doesnt match id in store send post request
 //if does then put request
 //find one where user Id's match and includes cart
