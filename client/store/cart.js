@@ -9,10 +9,11 @@ export const getItems = items => ({
   items
 })
 
-export const addItemToCart = (productId, quantity) => ({
+export const addItemToCart = (product, quantity) => ({
   type: ADD_TO_CART,
   item: {
-    itemId: productId,
+    //{item: itemId: produt}
+    itemId: product,
     quantity
   }
 })
@@ -34,8 +35,9 @@ export const fetchCart = () => async dispatch => {
 //will grab the id from the product and user quantity on the react end to send here and update the database cart model to include the new item.
 export const putItemInCart = (productId, userQuantity) => async dispatch => {
   try {
+    const {data} = await axios.get(`/api/products/${productId}`)
     await axios.put(`/api/cart/${productId}`, userQuantity)
-    dispatch(addItemToCart(productId, userQuantity))
+    dispatch(addItemToCart(data, userQuantity))
   } catch (error) {
     console.error(error)
   }
@@ -46,7 +48,7 @@ export default (state = defaultItems, action) => {
     case GET_ITEMS_IN_CART:
       return action.items
     case ADD_TO_CART:
-      return [...state, action.item]
+      return {...state, products: [...state.products, action.item]}
     default:
       return state
   }
