@@ -8,14 +8,14 @@ class Cart extends React.Component {
     super(props)
   }
   componentDidMount() {
-    // const id = this.props.user.id
-    // if (id) fetchCart(id)
-    // else if (localStorage.getItem('cart'))
-    //   getCart(JSON.parse(localStorage.getItem('cart')))
-    this.props.fetchCart() //Needs to change when we get the correct user
+    if (window.localStorage.getItem('isLoggedIn')) {
+      this.props.fetchCart()
+      console.log(window.localStorage.getItem('isLoggedIn'))
+    }
+
+    //Needs to change when we get the correct user
   }
   render() {
-    console.log('props', this.props)
     return this.props.cart.products ? (
       <ProductsTray order={this.props.cart} />
     ) : (

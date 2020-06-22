@@ -23,8 +23,8 @@ const defaultItems = {}
 export const fetchCart = () => async dispatch => {
   //will change to accomodate user logged in or not.
   try {
+    // console.log('checking user',req.session.userId)
     const {data} = await axios.get(`/api/cart`)
-    console.log('data', data)
     dispatch(getItems(data))
   } catch (error) {
     console.error(error)

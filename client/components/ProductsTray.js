@@ -1,7 +1,6 @@
 import React from 'react'
 
 const ProductTray = props => {
-  console.log('prodprops', props)
   const order = props.order
   const products = props.order.products
 

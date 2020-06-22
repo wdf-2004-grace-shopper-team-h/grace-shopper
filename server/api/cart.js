@@ -19,7 +19,6 @@ router.get('/', async (req, res, next) => {
           (product.dataValues.quantitySold =
             product.order_products.numberOfItems)
       )
-      console.log(order.products)
     }
     twoDOrder(mostRecentOrder)
 

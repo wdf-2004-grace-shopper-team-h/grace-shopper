@@ -40,6 +40,8 @@ export const auth = (email, password, method) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
+    window.localStorage.setItem('isLoggedIn', 'true')
+    console.log(window.localStorage.getItem('isLoggedIn'))
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
@@ -50,6 +52,9 @@ export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     dispatch(removeUser())
+
+    window.localStorage.removeItem('isLoggedIn')
+    console.log(window.localStorage.getItem('isLoggedIn'))
     history.push('/login')
   } catch (err) {
     console.error(err)
