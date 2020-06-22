@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-app.get('/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const product = await Products.findOne({
       where: {
@@ -30,7 +30,7 @@ app.get('/:id', async (req, res, next) => {
   }
 })
 
-app.delete('/:id', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     if (!req.session.admin) {
       console.log(red('ACCESS DENIED!'))
@@ -41,37 +41,40 @@ app.delete('/:id', async (req, res, next) => {
         id: req.params.id
       }
     })
-    console.log(green(`Deleted ${destroyed.name} successfully from the database!`))
+    console.log(
+      green(`Deleted ${destroyed.name} successfully from the database!`)
+    )
     res.json(destroyed)
   } catch (error) {
-    console.log(red(`Can't delete product with id: ${req.params.id} from the database.`))
+    console.log(
+      red(`Can't delete product with id: ${req.params.id} from the database.`)
+    )
     next(error)
   }
 })
 
-app.put('/:id', async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     if (!req.session.admin) {
       console.log(red('ACCESS DENIED!'))
       res.sendStatus(403)
     }
-    const updated = await Products.update(
-      req.body,
-      {
-        where: {
-          id: req.params.id
-        }
+    const updated = await Products.update(req.body, {
+      where: {
+        id: req.params.id
       }
-    )
+    })
     console.log(green(`Updated ${updated.name} successfully in the database!`))
     res.json(updated)
   } catch (error) {
-    console.log(red(`Can't delete product with id: ${req.params.id} from the database.`))
+    console.log(
+      red(`Can't delete product with id: ${req.params.id} from the database.`)
+    )
     next(error)
   }
 })
 
-app.post('/', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     if (!req.session.admin) {
       console.log(red('ACCESS DENIED!'))
