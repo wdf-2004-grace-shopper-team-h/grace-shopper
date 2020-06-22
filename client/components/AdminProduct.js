@@ -19,7 +19,8 @@ export class AdminProduct extends React.Component {
       description: ''
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleOnClick = this.handleOnClick.bind(this)
+    this.handleOnClickSubmit = this.handleOnClickSubmit.bind(this)
+    this.handleOnClickRemove = this.handleOnClickRemove.bind(this)
   }
 
   async componentDidMount() {
@@ -34,23 +35,23 @@ export class AdminProduct extends React.Component {
     })
   }
 
-  handleOnClick(event) {
+  handleOnClickSubmit(event) {
     event.preventDefault()
-    console.log(this.state)
-    // const id = this.props.match.params.id
-    // try {
-    //     this.props.modifyProduct(id, this.state)
-    // } catch (err) {
-    //     console.log('Modify product reject', err)
-    // }
-    // event.preventDefault();
+    const id = this.props.match.params.id
+    try {
+      this.props.modifyProduct(id, this.state)
+    } catch (err) {
+      console.log('Modify product reject', err)
+    }
   }
 
   //delete
-  handleOnClickRemove = id => event => {
+  handleOnClickRemove = async event => {
     event.preventDefault()
+    const id = this.props.match.params.id
     try {
-      this.props.deleteProduct(id)
+      await this.props.deleteProduct(id)
+      this.props.history.push('/products')
     } catch (err) {
       console.log('Auchtung!!', err)
     }
@@ -64,13 +65,22 @@ export class AdminProduct extends React.Component {
     if (!this.state.name) {
       return <h1>Loading...</h1>
     } else {
-      console.log('state: ', !!this.state.name)
       return (
-        <ModifyProductForm
-          stuff={this.state}
-          onChangeFunc={this.handleChange}
-          onClickFunc={this.handleOnClick}
-        />
+        <div>
+          <center>
+            <h3>Modify Product</h3>
+          </center>
+          <ModifyProductForm
+            stuff={this.state}
+            onChangeFunc={this.handleChange}
+            onClickFunc={this.handleOnClickSubmit}
+          />
+          <center>
+            <button onClick={this.handleOnClickRemove}>
+              Delete This Product.
+            </button>
+          </center>
+        </div>
       )
     }
   }
@@ -84,7 +94,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    deleteProduct: id => dispatch(deleteProduct(id)),
+    deleteProduct: id => deleteProduct(id),
     modifyProduct: (id, obj) => dispatch(modifyProduct(id, obj)),
     getProduct: id => dispatch(fetchProduct(id))
   }

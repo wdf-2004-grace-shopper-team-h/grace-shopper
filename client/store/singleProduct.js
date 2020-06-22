@@ -21,7 +21,6 @@ export const fetchProduct = id => async dispatch => {
 export const deleteProduct = async id => {
   try {
     await axios.delete(`/api/products/${id}`)
-    //add history push here or on front?
   } catch (error) {
     console.error(error)
   }
