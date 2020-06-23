@@ -8,7 +8,7 @@ const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
 export const deleteItem = productId => ({
   type: REMOVE_FROM_CART,
-  itemId: productId
+  productId
 })
 export const getItems = items => ({
   type: GET_ITEMS_IN_CART,
@@ -78,17 +78,14 @@ export default (state = defaultItems, action) => {
   switch (action.type) {
     case GET_ITEMS_IN_CART:
       return action.items
+
     case ADD_TO_CART:
       return [...state, action.item]
     case REMOVE_FROM_CART:
-      const newState = {...state, products: [...state.products]}
-      // console.log('state dispatched',action.productId)
-      const newListOfProducts = newState.products.filter(product => {
-        console.log('actionId', action.itemId)
-        return product.id !== action.itemId
+      const newList = state.products.filter(product => {
+        return product.id != action.productId
       })
-      console.log(newListOfProducts, newState.products)
-      return {...state, products: [...newListOfProducts]}
+      return {...state, products: [...newList]}
     default:
       return state
   }
