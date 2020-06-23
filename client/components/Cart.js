@@ -15,7 +15,6 @@ class Cart extends React.Component {
   handleClickDel = async event => {
     event.preventDefault()
     const productId = event.target.parentElement.parentElement.id
-    console.log('productId', productId)
     await this.props.deleteItemFromDb(productId)
   }
 
