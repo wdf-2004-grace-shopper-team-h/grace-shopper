@@ -10,7 +10,14 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const crypto = require('crypto')
 module.exports = app
+
+var genuuid = function() {
+  // 16 bytes is likely to be more than enough,
+  // but you may tweak it to your needs
+  return crypto.randomBytes(16).toString('base64')
+}
 
 // This is a global Mocha hook, used for resource cleanup.
 // Otherwise, Mocha v4+ never quits after tests.
@@ -54,6 +61,9 @@ const createApp = () => {
   // session middleware with passport
   app.use(
     session({
+      genid: function(req) {
+        return genuuid() // use UUIDs for session IDs
+      },
       secret: process.env.SESSION_SECRET || 'my best friend is Cody',
       store: sessionStore,
       resave: false,
