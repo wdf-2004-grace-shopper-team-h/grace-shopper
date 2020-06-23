@@ -1,9 +1,10 @@
 import React from 'react'
 import {fetchCart, updateQtyInCart} from '../store/cart'
-import {fetchGuestCart} from '../store/guestCart'
+import {fetchGuestCart, updateQtyInGuestCart} from '../store/guestCart'
 import {connect} from 'react-redux'
 import ProductsTray from './ProductsTray'
 import GuestProductTray from './GuestProductsTray'
+
 //import fetchCart from '../store/'
 class Cart extends React.Component {
   constructor(props) {
@@ -18,7 +19,11 @@ class Cart extends React.Component {
     const qty = Number(event.target.value)
     const productId = Number(event.target.parentElement.parentElement.id)
     const orderId = event.target.id
-    this.props.updateQtyInCart(productId, qty, orderId)
+    if (this.props.user.id) {
+      this.props.updateQtyInCart(productId, qty, orderId)
+    } else {
+      this.props.updateQtyInGuestCart(productId, qty)
+    }
   }
 
   async componentDidMount() {
@@ -42,7 +47,10 @@ class Cart extends React.Component {
       )
     } else {
       return this.props.cart.length ? (
-        <GuestProductTray order={this.props.cart} />
+        <GuestProductTray
+          order={this.props.cart}
+          handleChange={this.handleChange}
+        />
       ) : (
         <div> Nothing here! Check out our selection :D </div>
       )
@@ -57,7 +65,9 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   fetchCart: () => dispatch(fetchCart()), //needs to change to accomodate the current user logged in.
   fetchGuestCart: () => dispatch(fetchGuestCart()),
-  updateQtyInCart: (productId, userQty, orderId) =>
-    dispatch(updateQtyInCart(productId, userQty, orderId))
+  updateQtyInCart: (productId, userQty) =>
+    dispatch(updateQtyInCart(productId, userQty)),
+  updateQtyInGuestCart: (productId, guestUserQty) =>
+    dispatch(updateQtyInGuestCart(productId, guestUserQty))
 })
 export default connect(mapState, mapDispatch)(Cart)

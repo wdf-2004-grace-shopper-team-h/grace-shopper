@@ -27,7 +27,7 @@ const GuestProductTray = props => {
               <td>
                 <select
                   defaultValue={item.numberOfItems}
-                  onChange={this.handleChange}
+                  onChange={props.handleChange}
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>

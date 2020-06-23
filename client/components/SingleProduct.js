@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import history from '../history'
 import {
   fetchProduct,
   deleteProduct,
@@ -41,6 +42,7 @@ export class SingleProduct extends React.Component {
       await this.props.pushProduct(this.props.product.id, selectValue)
     } else {
       this.props.addItemToGuestCart(this.props.product.id, selectValue)
+      history.push('/cart')
     }
   }
 

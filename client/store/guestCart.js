@@ -2,6 +2,7 @@ import axios from 'axios'
 import history from '../history'
 import {getItems, GET_ITEMS_IN_CART} from './cart'
 const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
+export const UPDATE_ITEM_IN_GUEST_CART = 'UPDATE_ITEM_IN_GUEST_CART'
 
 export const addItemToGuestCart = (productId, numOfItems) => ({
   type: ADD_TO_GUEST_CART,
@@ -11,7 +12,11 @@ export const addItemToGuestCart = (productId, numOfItems) => ({
   }
 })
 
-export const getGuestCart = () => {}
+export const updateQtyInGuestCart = (productId, userQuantity) => ({
+  type: UPDATE_ITEM_IN_GUEST_CART,
+  itemId: productId,
+  userQuantity
+})
 
 export const fetchGuestCart = () => async (dispatch, getState) => {
   try {
@@ -45,6 +50,14 @@ export default (state = guestCart, action) => {
         return [...updatedGuestCart]
       }
       return [...state, action.item]
+    case UPDATE_ITEM_IN_GUEST_CART:
+      let newList = state.map(product => {
+        if (product.id === action.itemId) {
+          product.numberOfItems = action.numberOfItems
+        }
+        return product
+      })
+      return [...newList]
     default:
       return state
   }
