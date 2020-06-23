@@ -21,7 +21,7 @@ const ProductTray = props => {
             <th>Price</th>
           </tr>
           {products.map(item => (
-            <tr key={item.id}>
+            <tr key={item.id} id={item.id}>
               <td>
                 <img src={item.imgUrl} width="200" height="200" />
               </td>
@@ -29,7 +29,7 @@ const ProductTray = props => {
               <td>{item.order_products.numberOfItems}</td>
               <td>{item.price * item.order_products.numberOfItems}</td>
               <td>
-                <button onClick={props.handleClick}>Delete</button>
+                <button onClick={props.handleClickDel}>Delete</button>
               </td>
             </tr>
           ))}

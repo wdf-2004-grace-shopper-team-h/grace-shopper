@@ -4,7 +4,6 @@ import {setNumItems} from './numberOfItems'
 
 const GET_ITEMS_IN_CART = 'GET_ITEMS_IN_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
-const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
 // export const deleteItem = => ({
 //   type: REMOVE_FROM_CART
@@ -64,7 +63,9 @@ export const updateQtyInCart = (productId, userQuantity) => async dispatch => {
 
 export const deleteItemFromDb = productId => async dispatch => {
   try {
-    await axios.delete(`/api/cart/${productId}`)
+    console.log(productId)
+    await axios.delete(`/api/cart/delete/${productId}`)
+    console.log('item was deleted')
     history.push('/cart')
   } catch (error) {
     console.error(error)

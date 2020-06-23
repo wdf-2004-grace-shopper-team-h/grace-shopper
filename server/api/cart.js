@@ -70,7 +70,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/delete/:id', async (req, res, next) => {
   try {
     const productId = req.params.id
     await OrderProducts.destroy({

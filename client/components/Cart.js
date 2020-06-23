@@ -6,10 +6,17 @@ import ProductsTray from './ProductsTray'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
+    this.handleClickDel = this.handleClickDel.bind(this)
   }
 
   handleOnClick = () => event => {
     this.props.history.push('/checkout')
+  }
+  handleClickDel = async event => {
+    event.preventDefault()
+    const productId = event.target.parentElement.parentElement.id
+    console.log('productId', productId)
+    await this.props.deleteItemFromDb(productId)
   }
 
   componentDidMount() {
@@ -24,7 +31,7 @@ class Cart extends React.Component {
     return this.props.cart.products ? (
       <ProductsTray
         order={this.props.cart}
-        delete={this.props.deleteItemFromDb}
+        handleClickDel={this.handleClickDel}
       />
     ) : (
       <div> Nothing here! Check out our selection :D </div>
