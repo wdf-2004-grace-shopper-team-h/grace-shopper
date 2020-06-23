@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../history'
 
 const GET_ORDERS = 'GET_ORDERS'
 
@@ -24,6 +23,6 @@ export default (state = defaultOrders, action) => {
     case GET_ORDERS:
       return action.orders
     default:
-      return stat
+      return state
   }
 }
