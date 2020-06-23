@@ -16,6 +16,7 @@ class Cart extends React.Component {
     event.preventDefault()
     const productId = event.target.parentElement.parentElement.id
     await this.props.deleteItemFromDb(productId)
+    this.forceUpdate()
   }
 
   componentDidMount() {

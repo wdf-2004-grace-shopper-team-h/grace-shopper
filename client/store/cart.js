@@ -4,10 +4,12 @@ import {setNumItems} from './numberOfItems'
 
 const GET_ITEMS_IN_CART = 'GET_ITEMS_IN_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
-// export const deleteItem = => ({
-//   type: REMOVE_FROM_CART
-// })
+export const deleteItem = productId => ({
+  type: REMOVE_FROM_CART,
+  itemId: productId
+})
 export const getItems = items => ({
   type: GET_ITEMS_IN_CART,
   items
@@ -26,7 +28,6 @@ export const addItemToCart = productId => ({
   itemId: productId
 })
 
-const defaultItems = {}
 //what is this trying to get?
 //to get the cart  with all items in it when a user gets to their cart page. it should display all items.
 export const fetchCart = () => async dispatch => {
@@ -61,16 +62,17 @@ export const updateQtyInCart = (productId, userQuantity) => async dispatch => {
   }
 }
 
-export const deleteItemFromDb = productId => async dispatch => {
+export const deleteItemFromDb = productId => async (dispatch, getState) => {
   try {
-    console.log(productId)
     await axios.delete(`/api/cart/delete/${productId}`)
-    console.log('item was deleted')
+    dispatch(deleteItem(productId))
     history.push('/cart')
   } catch (error) {
     console.error(error)
   }
 }
+
+const defaultItems = {}
 
 export default (state = defaultItems, action) => {
   switch (action.type) {
@@ -78,9 +80,15 @@ export default (state = defaultItems, action) => {
       return action.items
     case ADD_TO_CART:
       return [...state, action.item]
-    // case REMOVE_FROM_CART:
-    //   const newProducts = state.products.filter(product => product.id !== productId)
-    //   return Object.assign({}, state, products = [...newProducts])
+    case REMOVE_FROM_CART:
+      const newState = {...state, products: [...state.products]}
+      // console.log('state dispatched',action.productId)
+      const newListOfProducts = newState.products.filter(product => {
+        console.log('actionId', action.itemId)
+        return product.id !== action.itemId
+      })
+      console.log(newListOfProducts, newState.products)
+      return {...state, products: [...newListOfProducts]}
     default:
       return state
   }
