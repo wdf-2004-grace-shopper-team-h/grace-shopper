@@ -57,4 +57,16 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-//get the order than typ add product through{update nom items} 2db calls
+//get the order than type add product through{update nom items} 2db calls
+
+router.put('/:id', async (req, res, next) => {
+  //console.log(req.body)
+  const orderToUpdate = await OrderProducts.findOne({
+    where: {
+      orderId: req.session.orderId,
+      productId: req.params.id
+    }
+  })
+  orderToUpdate.update({numberOfItems: req.body.userQuantity})
+  res.sendStatus(201)
+})
