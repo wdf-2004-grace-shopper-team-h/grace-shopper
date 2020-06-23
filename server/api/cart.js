@@ -15,6 +15,7 @@ router.get('/', async (req, res, next) => {
       })
 
       const twoDOrder = order => {
+        //Make a util function
         order.products.map(
           product =>
             (product.dataValues.quantitySold =
@@ -56,37 +57,4 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-//if id doesnt match id in store send post request
-//if does then put request
-//find one where user Id's match and includes cart
-//updateAmount (amount)
-// router.put('/updateAmount', async (req, res, next) => {
-//   try {
-//     const itemId = req.body.itemId
-//     const quantity = req.body.amount
-//     const user = await User.findByPk(req.session.userId)
-
-//     user.carts.map(product => {
-//       if (product.itemId === itemId) {
-//         product.quantity = quantity
-//       }
-//     })
-//     res.sendStatus(204)
-//     //res.sendStatus(200)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
-// router.post('/addCart', async (req, res, next) => {
-//   try {
-//     const user = await User.findByPk(req.session.userId)
-//     const itemId = req.body.itemId
-//     const amount = req.body.amount
-//     await user.createCart({itemId, amount})
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
-// // })
+//get the order than typ add product through{update nom items} 2db calls
