@@ -1,6 +1,10 @@
 import React from 'react'
 
-const ModifyProductForm = props => {
+/*
+Used for create new product and modify product under admin user
+*/
+
+const ProductForm = props => {
   const product = props.stuff
   return (
     <center>
@@ -56,4 +60,4 @@ const ModifyProductForm = props => {
   )
 }
 
-export default ModifyProductForm
+export default ProductForm
