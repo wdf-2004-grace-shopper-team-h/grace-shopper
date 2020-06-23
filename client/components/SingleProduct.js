@@ -1,12 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {
-  fetchProduct,
-  deleteProduct,
-  modifyProduct
-} from '../store/singleProduct'
+import {fetchProduct} from '../store/singleProduct'
 import {me} from '../store/user'
+
 export class SingleProduct extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id
@@ -14,26 +10,13 @@ export class SingleProduct extends React.Component {
     this.props.getUser()
   }
 
-  handleOnClick = params => event => {}
-
-  //delete
-  handleOnClickRemove = id => event => {
-    event.preventDefault()
-    try {
-      this.props.deleteProduct(id)
-    } catch (err) {
-      console.log('Auchtung!!', err)
-    }
-  }
-
   handlrOnClickAddToCart = () => event => {}
-
+  //if user is admin -> redirect to admin page of product
   render() {
     if (this.props.user.admin) {
       this.props.history.push(`/admin_product/${this.props.match.params.id}`)
     }
     const product = this.props.product
-    // return <h1>Loading...</h1>
     return (
       <div className="singleProduct" key={product.id}>
         <h4>{product.name}</h4>
@@ -60,8 +43,6 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    deleteProduct: id => dispatch(deleteProduct(id)),
-    modifyProduct: (id, obj) => dispatch(modifyProduct(id, obj)),
     getProduct: id => dispatch(fetchProduct(id)),
     getUser: () => dispatch(me())
   }

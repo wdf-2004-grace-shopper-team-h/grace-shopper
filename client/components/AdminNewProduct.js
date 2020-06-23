@@ -1,6 +1,8 @@
 import React from 'react'
 import Axios from 'axios'
-import ModifyProductForm from './ModifyProductForm'
+import ProductForm from './ProductForm'
+import {connect} from 'react-redux'
+import {addProduct} from '../store/singleProduct'
 
 export class AdminNewProduct extends React.Component {
   constructor() {
@@ -19,11 +21,9 @@ export class AdminNewProduct extends React.Component {
   async handleOnClickSubmit(event) {
     event.preventDefault()
     try {
-      const {data} = await Axios.post(
-        '/api/products/create_new_product',
-        this.state
-      )
-      this.props.history.push(`/admin_product/${data.id}`)
+      await this.props
+        .createProduct(this.state)
+        .then(id => this.props.history.push(`/admin_product/${id}`))
     } catch (err) {
       console.log('Add new product reject', err)
     }
@@ -39,7 +39,7 @@ export class AdminNewProduct extends React.Component {
         <center>
           <h3>Add New Product</h3>
         </center>
-        <ModifyProductForm
+        <ProductForm
           stuff={this.state}
           onChangeFunc={this.handleChange}
           onClickFunc={this.handleOnClickSubmit}
@@ -49,4 +49,10 @@ export class AdminNewProduct extends React.Component {
   }
 }
 
-export default AdminNewProduct
+const mapDispatch = () => {
+  return {
+    createProduct: obj => addProduct(obj)
+  }
+}
+
+export default connect(null, mapDispatch)(AdminNewProduct)

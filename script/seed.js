@@ -15,8 +15,7 @@ async function seed() {
   // )])
 
   const users = await Promise.all([
-
-    User.create({email: 'cody1@email.com', password: '123',admin: true}),
+    User.create({email: 'cody1@email.com', password: '123', admin: true}),
     User.create({email: 'murphy1@email.com', password: '123'}),
     User.create({
       email: 'admin12@graceshopp.er',
@@ -36,7 +35,6 @@ async function seed() {
     User.create({email: 'murphy4@email.com', password: '123'}),
     User.create({email: 'cody5@email.com', password: '123'}),
     User.create({email: 'murphy5@email.com', password: '123'})
-
   ])
 
   const order1 = await Orders.create({
@@ -185,18 +183,6 @@ async function seed() {
       priceSold: 999
     })
   ])
-
-  // await User.findByPk(1)
-  //   .then(user => user.createOrder())
-  //   .then(order =>
-  //     order.createOrderDetail({productId: 2, quantity: 3, total_cost: 300})
-  //   )
-
-  // await users[0].createCart({productId: 4, amount: 1})
-  // await users[0].createCart({productId: 1, amount: 3})
-
-  // //checking update in Cart model
-  // await Cart.updateAmount(1, 4, 10)
 
   console.log(`seeded successfully`)
 }
