@@ -51,7 +51,7 @@ async function seed() {
   const order3 = await Orders.create({
     userId: 2,
     total: 1998,
-    isCompleted: false
+    isCompleted: true
   })
   const order4 = await Orders.create({
     userId: 1,
