@@ -11,7 +11,8 @@ import {
   Cart,
   SingleProduct,
   AdminProduct,
-  AdminNewProduct
+  AdminNewProduct,
+  PastOrders
 } from './components'
 import {me} from './store'
 
@@ -37,6 +38,7 @@ class Routes extends Component {
         <Route path="/checkout" component={Checkout} />
         <Route exact path="/admin_product/:id" component={AdminProduct} />
         <Route exact path="/admin/new_product" component={AdminNewProduct} />
+        <Route exact path="/orders" component={PastOrders} />
         /admin/new_product
         {isLoggedIn && (
           <Switch>

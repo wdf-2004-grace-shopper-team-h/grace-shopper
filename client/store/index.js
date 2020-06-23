@@ -7,7 +7,8 @@ import products from './products'
 import cart from './cart'
 import singleProduct from './singleProduct'
 import numberOfItems from './numberOfItems'
-import orders from './orders'
+import orders from './pastOrders'
+
 //Adding local storage to the redux store
 
 function saveToLocalStorage(cartState) {
