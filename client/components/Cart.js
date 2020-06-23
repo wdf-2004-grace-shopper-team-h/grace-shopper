@@ -22,7 +22,6 @@ class Cart extends React.Component {
   componentDidMount() {
     if (window.localStorage.getItem('isLoggedIn')) {
       this.props.fetchCart()
-      console.log(window.localStorage.getItem('isLoggedIn'))
     }
 
     //Needs to change when we get the correct user
@@ -42,8 +41,10 @@ const mapState = state => ({
   cart: state.cart
 })
 const mapDispatch = dispatch => ({
+
   fetchCart: () => dispatch(fetchCart()), //needs to change to accomodate the current user logged in.
   deleteItemFromDb: productId => dispatch(deleteItemFromDb(productId))
-  //getCArt: cart => dispatch(getCArt(cart))
+ 
+
 })
 export default connect(mapState, mapDispatch)(Cart)
