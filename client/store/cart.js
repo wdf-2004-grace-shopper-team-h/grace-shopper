@@ -1,10 +1,15 @@
 import axios from 'axios'
 import history from '../history'
 
-export const GET_ITEMS_IN_CART = 'GET_ITEMS_IN_CART'
-export const ADD_TO_CART = 'ADD_TO_CART'
 export const UPDATE_ITEM_IN_CART = 'UPDATE_ITEM_IN_CART'
+const GET_ITEMS_IN_CART = 'GET_ITEMS_IN_CART'
+const ADD_TO_CART = 'ADD_TO_CART'
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
+export const deleteItem = productId => ({
+  type: REMOVE_FROM_CART,
+  productId
+})
 export const getItems = items => ({
   type: GET_ITEMS_IN_CART,
   items
@@ -21,7 +26,6 @@ export const addItemToCart = productId => ({
   itemId: productId
 })
 
-const defaultItems = {}
 //what is this trying to get?
 //to get the cart  with all items in it when a user gets to their cart page. it should display all items.
 export const fetchCart = () => async dispatch => {
@@ -61,23 +65,40 @@ export const updateQtyInCart = (
   }
 }
 
+export const deleteItemFromDb = productId => async (dispatch, getState) => {
+  try {
+    await axios.delete(`/api/cart/delete/${productId}`)
+    dispatch(deleteItem(productId))
+    history.push('/cart')
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const defaultItems = {}
+
 export default (state = defaultItems, action) => {
   switch (action.type) {
     case GET_ITEMS_IN_CART:
       return action.items
+
     case ADD_TO_CART:
       return [...state, action.item]
+    case REMOVE_FROM_CART:
+      const newList = state.products.filter(product => {
+        return product.id != action.productId
+      })
+      return {...state, products: [...newList]}
     case UPDATE_ITEM_IN_CART:
-      const newList = state.products.map(product => {
+      const newQtyList = state.products.map(product => {
         if (product.id == action.itemId) {
           product.numberOfItems = action.userQuantity
         }
         return product
       })
-
       return {
         ...state,
-        products: [...newList],
+        products: [...newQtyList],
         order_products: {
           ...state.order_products,
           numberOfItems: action.userQuantity

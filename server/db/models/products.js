@@ -11,11 +11,17 @@ module.exports = db.define('products', {
   },
   inventoryAmount: {
     type: Sequelize.INTEGER,
-    defaultValue: 0
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
   },
   price: {
     type: Sequelize.INTEGER,
-    defaultValue: 0
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
   },
   imgUrl: {
     type: Sequelize.TEXT,

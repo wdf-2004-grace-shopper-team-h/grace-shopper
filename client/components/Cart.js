@@ -1,5 +1,5 @@
 import React from 'react'
-import {fetchCart, updateQtyInCart} from '../store/cart'
+import {fetchCart, deleteItemFromDb, updateQtyInCart} from '../store/cart'
 import {fetchGuestCart, updateQtyInGuestCart} from '../store/guestCart'
 import {connect} from 'react-redux'
 import ProductsTray from './ProductsTray'
@@ -9,12 +9,20 @@ import GuestProductTray from './GuestProductsTray'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
+    this.handleClickDel = this.handleClickDel.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleOnClick = () => event => {
     this.props.history.push('/checkout')
   }
+  handleClickDel = async event => {
+    event.preventDefault()
+    const productId = event.target.parentElement.parentElement.id
+    await this.props.deleteItemFromDb(productId)
+    this.forceUpdate()
+  }
+
   handleChange = event => {
     const qty = Number(event.target.value)
     const productId = Number(event.target.parentElement.parentElement.id)
@@ -32,8 +40,6 @@ class Cart extends React.Component {
     } else {
       await this.props.fetchGuestCart()
     }
-
-    //Needs to change when we get the correct user
   }
   render() {
     if (this.props.user.id) {
@@ -41,6 +47,7 @@ class Cart extends React.Component {
         <ProductsTray
           order={this.props.cart}
           handleChange={this.handleChange}
+          handleClickDel={this.handleClickDel}
         />
       ) : (
         <div> Nothing here! Check out our selection :D </div>
@@ -50,6 +57,7 @@ class Cart extends React.Component {
         <GuestProductTray
           order={this.props.cart}
           handleChange={this.handleChange}
+          handleClickDel={this.handleClickDel}
         />
       ) : (
         <div> Nothing here! Check out our selection :D </div>
@@ -68,6 +76,7 @@ const mapDispatch = dispatch => ({
   updateQtyInCart: (productId, userQty) =>
     dispatch(updateQtyInCart(productId, userQty)),
   updateQtyInGuestCart: (productId, guestUserQty) =>
-    dispatch(updateQtyInGuestCart(productId, guestUserQty))
+    dispatch(updateQtyInGuestCart(productId, guestUserQty)),
+  deleteItemFromDb: productId => dispatch(deleteItemFromDb(productId))
 })
 export default connect(mapState, mapDispatch)(Cart)

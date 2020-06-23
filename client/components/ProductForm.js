@@ -1,10 +1,14 @@
 import React from 'react'
 
-const ModifyProductForm = props => {
+/*
+Used for create new product and modify product under admin user
+*/
+
+const ProductForm = props => {
   const product = props.stuff
   return (
     <center>
-      <form id="admin_form" onSubmit={props.handleOnClick} width="500px">
+      <form id="admin_form" onSubmit={props.onClickFunc} width="500px">
         <label htmlFor="name">Name:</label>
 
         <input
@@ -56,4 +60,4 @@ const ModifyProductForm = props => {
   )
 }
 
-export default ModifyProductForm
+export default ProductForm
