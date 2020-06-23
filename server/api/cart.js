@@ -70,6 +70,22 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const productId = req.params.id
+    await OrderProducts.destroy({
+      where: {
+        orderId: req.session.orderId,
+        productId: productId
+      }
+    })
+
+    res.sendStatus(200)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //if id doesnt match id in store send post request
 //if does then put request
 //find one where user Id's match and includes cart

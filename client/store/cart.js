@@ -4,7 +4,11 @@ import {setNumItems} from './numberOfItems'
 
 const GET_ITEMS_IN_CART = 'GET_ITEMS_IN_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
+// export const deleteItem = => ({
+//   type: REMOVE_FROM_CART
+// })
 export const getItems = items => ({
   type: GET_ITEMS_IN_CART,
   items
@@ -58,12 +62,24 @@ export const updateQtyInCart = (productId, userQuantity) => async dispatch => {
   }
 }
 
+export const deleteItemFromDb = productId => async dispatch => {
+  try {
+    await axios.delete(`/api/cart/${productId}`)
+    history.push('/cart')
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export default (state = defaultItems, action) => {
   switch (action.type) {
     case GET_ITEMS_IN_CART:
       return action.items
     case ADD_TO_CART:
       return [...state, action.item]
+    // case REMOVE_FROM_CART:
+    //   const newProducts = state.products.filter(product => product.id !== productId)
+    //   return Object.assign({}, state, products = [...newProducts])
     default:
       return state
   }

@@ -28,6 +28,9 @@ const ProductTray = props => {
               <td>{item.name}</td>
               <td>{item.order_products.numberOfItems}</td>
               <td>{item.price * item.order_products.numberOfItems}</td>
+              <td>
+                <button onClick={props.handleClick}>Delete</button>
+              </td>
             </tr>
           ))}
           <tr>
