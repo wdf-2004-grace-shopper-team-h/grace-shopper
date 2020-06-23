@@ -9,6 +9,7 @@ import {
 import {pushProduct} from '../store/cart'
 import {me} from '../store/user'
 import {setNumItems} from '../store/numberOfItems'
+import {addItemToGuestCart} from '../store/guestCart'
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
@@ -33,13 +34,14 @@ export class SingleProduct extends React.Component {
 
   handlrOnClickAddToCart = () => event => {}
 
-  handleClick(event) {
-    event.preventDefault()
-  }
-
   async addToCartTest(event) {
     event.preventDefault()
-    await this.props.pushProduct(this.props.product.id)
+    const selectValue = Number(event.target.previousElementSibling.value)
+    if (this.props.user.id) {
+      await this.props.pushProduct(this.props.product.id, selectValue)
+    } else {
+      this.props.addItemToGuestCart(this.props.product.id, selectValue)
+    }
   }
 
   handleChange(event) {
@@ -93,8 +95,11 @@ const mapDispatch = dispatch => {
     modifyProduct: (id, obj) => dispatch(modifyProduct(id, obj)),
     getProduct: id => dispatch(fetchProduct(id)),
     getUser: () => dispatch(me()),
-    pushProduct: productId => dispatch(pushProduct(productId)),
-    setNumItems: num => dispatch(setNumItems(num))
+    pushProduct: (productId, numberOfItems) =>
+      dispatch(pushProduct(productId, numberOfItems)),
+    setNumItems: num => dispatch(setNumItems(num)),
+    addItemToGuestCart: (productId, numberOfItems) =>
+      dispatch(addItemToGuestCart(productId, numberOfItems))
   }
 }
 

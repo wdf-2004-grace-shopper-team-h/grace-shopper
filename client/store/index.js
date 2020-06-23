@@ -6,17 +6,17 @@ import user from './user'
 import products from './products'
 import cart from './cart'
 import singleProduct from './singleProduct'
-import numberOfItems from './numberOfItems'
+import guestCart from './guestCart'
 
 //Adding local storage to the redux store
 
 function saveToLocalStorage(cartState) {
   const serializedCart = JSON.stringify(cartState)
-  localStorage.setItem('cart', serializedCart)
+  localStorage.setItem('guestCart', serializedCart)
 }
 
 function loadFromLocalStorage() {
-  const serializedCart = localStorage.getItem('cart')
+  const serializedCart = localStorage.getItem('guestCart')
   if (serializedCart === null) return undefined
   return JSON.parse(serializedCart)
 }
@@ -27,7 +27,7 @@ const reducer = combineReducers({
   products,
   cart,
   singleProduct,
-  numberOfItems
+  guestCart
 })
 
 const middleware = composeWithDevTools(
@@ -40,7 +40,7 @@ if (!window.localStorage.getItem('isLoggedIn')) {
 
   store.subscribe(() =>
     saveToLocalStorage({
-      cart: store.getState().cart
+      guestCart: store.getState().guestCart
     })
   )
 }

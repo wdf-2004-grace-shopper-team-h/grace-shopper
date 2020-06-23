@@ -11,7 +11,7 @@ const ProductTray = props => {
 
   return (
     <div>
-      <h2>Order # {order.id}</h2>
+      <h2>Cart Order # {order.id}</h2>
       <table>
         <tbody>
           <tr>
