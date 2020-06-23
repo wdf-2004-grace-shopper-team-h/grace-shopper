@@ -7,6 +7,7 @@ import products from './products'
 import cart from './cart'
 import singleProduct from './singleProduct'
 import numberOfItems from './numberOfItems'
+import orders from './pastOrders'
 
 //Adding local storage to the redux store
 
@@ -27,7 +28,8 @@ const reducer = combineReducers({
   products,
   cart,
   singleProduct,
-  numberOfItems
+  numberOfItems,
+  orders
 })
 
 const middleware = composeWithDevTools(
