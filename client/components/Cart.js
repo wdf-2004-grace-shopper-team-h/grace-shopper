@@ -4,6 +4,7 @@ import {fetchGuestCart, updateQtyInGuestCart} from '../store/guestCart'
 import {connect} from 'react-redux'
 import ProductsTray from './ProductsTray'
 import GuestProductTray from './GuestProductsTray'
+import {Link} from 'react-router-dom'
 
 //import fetchCart from '../store/'
 class Cart extends React.Component {
@@ -44,21 +45,31 @@ class Cart extends React.Component {
   render() {
     if (this.props.user.id) {
       return this.props.cart.products ? (
-        <ProductsTray
-          order={this.props.cart}
-          handleChange={this.handleChange}
-          handleClickDel={this.handleClickDel}
-        />
+        <div>
+          <ProductsTray
+            order={this.props.cart}
+            handleChange={this.handleChange}
+            handleClickDel={this.handleClickDel}
+          />
+          <Link to="/checkout">
+            <h4>Checkout</h4>
+          </Link>
+        </div>
       ) : (
         <div> Nothing here! Check out our selection :D </div>
       )
     } else {
       return this.props.cart.length ? (
-        <GuestProductTray
-          order={this.props.cart}
-          handleChange={this.handleChange}
-          handleClickDel={this.handleClickDel}
-        />
+        <div>
+          <GuestProductTray
+            order={this.props.cart}
+            handleChange={this.handleChange}
+            handleClickDel={this.handleClickDel}
+          />
+          <Link to="/checkout">
+            <h4>Checkout</h4>
+          </Link>
+        </div>
       ) : (
         <div> Nothing here! Check out our selection :D </div>
       )

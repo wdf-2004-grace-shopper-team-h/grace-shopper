@@ -6,6 +6,12 @@ const db = require('../db')
 //Has methods: setCart and set Order.
 
 const User = db.define('user', {
+  name: {
+    type: Sequelize.STRING
+  },
+  adress: {
+    type: Sequelize.TEXT
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
