@@ -145,6 +145,48 @@ async function seed() {
       \n* For 2 to 4 players.`,
     imgUrl: `https://www.hasbro.com/common/productimages/en_US/7ea5414950569047f5a233f4578345cc/7EA77B3150569047F54E3350FA98227B.jpg`
   })
+  const Risk = await Products.create({
+    name: 'Risk',
+    inventoryAmount: 20,
+    price: 3499,
+    description: `Risk is a strategy board game of diplomacy, conflict and conquest for two to six players. The standard version is played on a board depicting a political map of the world, divided into forty-two territories, which are grouped into six continents. ... Players may form and dissolve alliances during the course of the game.
+    `,
+    imgUrl: `https://images-na.ssl-images-amazon.com/images/I/91s9x1RHbtL._AC_SX522_.jpg`
+  })
+
+  const Jumanji = await Products.create({
+    name: 'Jumanji',
+    inventoryAmount: 20,
+    price: 3999,
+    description: `Grab your pawn, roll the eight-sided number die and move through the jungle. Draw a danger card, then use your decoder to discover the secret message and see if disaster strikes. Your fellow players must race against time to rescue you. The jungle threatens and begins to fill up the Doomsday Grid.
+  `,
+    imgUrl: `https://m.media-amazon.com/images/S/aplus-media/sc/70c34741-3312-4d2f-b274-e4c45fd9067e.__CR0,0,1940,1200_PT0_SX970_V1___.jpg`
+  })
+  const Scrabble = await Products.create({
+    name: 'Scrabble',
+    inventoryAmount: 20,
+    price: 2899,
+    description: `Scrabble is the ultimate crossword game in which every letter counts. Grab your friends and take turns forming words on the board. After playing your turn, count the value of all the letters in every new word that you formed. Don't forget the bonus points for placing letters on premium squares.
+  `,
+    imgUrl: `https://images-na.ssl-images-amazon.com/images/I/81LLKYZ9v8L._AC_SL1500_.jpg`
+  })
+  const Connect4 = await Products.create({
+    name: 'Connect 4',
+    inventoryAmount: 20,
+    price: 999,
+    description: `Connect-Four is a tic-tac-toe-like two-player game in which players alternately place pieces on a vertical board 7 columns across and 6 rows high. ... Both players begin with 21 identical pieces, and the first player to achieve a line of four connected pieces wins the game.
+  `,
+    imgUrl: `https://image.influenster.com/eyJlZGl0cyI6IHsicmVzaXplIjogeyJiYWNrZ3JvdW5kIjogeyJhbHBoYSI6IDAsICJyIjogMSwgImIiOiAxLCAiZyI6IDF9LCAid2lkdGgiOiA3NTAsICJmaXQiOiAiaW5zaWRlIiwgImhlaWdodCI6IDc1MCwgIndpdGhvdXRFbmxhcmdlbWVudCI6IHRydWV9fSwgImV4dGVuZCI6IHt9LCAia2V5IjogIm1lZGlhL3Byb2R1Y3QvaW1hZ2UvcHJvZHVjdC9pbWFnZS9zcGluX3Byb2RfODY4NDU5MzEyIiwgImJ1Y2tldCI6ICJpbmZsdWVuc3Rlcl9wcm9kdWN0aW9uIn0=`
+  })
+  const Twister = await Products.create({
+    name: 'Twister',
+    inventoryAmount: 20,
+    price: 1999,
+    description: `Twister game challenges you to put your hands and feet at different places on the mat without falling over! Be the last player standing to win. Two new moves! With Spinner's Choice, the spinner makes up a move for the other player to do. If the spinner lands on Air, the player must put a hand or foot in the air!
+  `,
+    imgUrl: `https://images-na.ssl-images-amazon.com/images/I/812zsiSB1PL._AC_SL1500_.jpg`
+  })
+
   const orderProducts = await Promise.all([
     OrderProducts.create({
       orderId: order1.id,
