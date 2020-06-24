@@ -41,6 +41,9 @@ const GuestProductTray = props => {
                 </select>
               </td>
               <td>{item.price * item.numberOfItems}</td>
+              <td>
+                <button onClick={props.handleClickDel}>Delete</button>
+              </td>
             </tr>
           ))}
           <tr>
