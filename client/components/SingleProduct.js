@@ -52,7 +52,7 @@ export class SingleProduct extends React.Component {
         <h4>{product.name}</h4>
         <img src={product.imgUrl} width="300" height="300" />
         <p>{product.description}</p>
-        <p>price: {product.price / 100}</p>
+        <p>price: ${product.price / 100}</p>
         <select defaultValue={1} onChange={this.handleChange}>
           <option value="1">1</option>
           <option value="2">2</option>
