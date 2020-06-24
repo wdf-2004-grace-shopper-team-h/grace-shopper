@@ -18,17 +18,17 @@ class AllOrders extends React.Component {
           <div>
             {orders.map(order => (
               <dl key={order.id}>
-                <dt>
-                  <Link to={`/orders/${orders.id}`}>
-                    <b>Order #</b>
+                <h3>
+                  <Link to={`/orders/${order.id}`}>
+                    <b>Order #{order.id}</b>{' '}
                   </Link>
-                </dt>
-                <dd>{order.id}</dd>
-                <dt>
+                </h3>
+
+                <dt style={{marginLeft: 16 + 'px'}}>
                   <b>Order Date</b>
                 </dt>
                 <dd>{order.updatedAt}</dd>
-                <dt>
+                <dt style={{marginLeft: 16 + 'px'}}>
                   <b>Order Total</b>
                 </dt>
                 <dd>${order.total / 100}</dd>
