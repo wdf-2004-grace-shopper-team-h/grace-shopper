@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {UPDATE_ITEM_IN_GUEST_CART} from './guestCart'
+import {UPDATE_ITEM_IN_GUEST_CART, REMOVE_FROM_GUEST_CART} from './guestCart'
 
 export const UPDATE_ITEM_IN_CART = 'UPDATE_ITEM_IN_CART'
 const GET_ITEMS_IN_CART = 'GET_ITEMS_IN_CART'
@@ -106,6 +106,12 @@ export default (state = defaultItems, action) => {
           //numberOfItems: action.userQuantity
         }
       }
+    case REMOVE_FROM_GUEST_CART:
+      console.log(action)
+      const removedList = state.filter(
+        product => product.id != action.productId
+      )
+      return [...removedList]
     case UPDATE_ITEM_IN_GUEST_CART:
       const newGuestList = state.map(product => {
         if (product.id == action.itemId) {

@@ -1,6 +1,10 @@
 import React from 'react'
 import {fetchCart, deleteItemFromDb, updateQtyInCart} from '../store/cart'
-import {fetchGuestCart, updateQtyInGuestCart} from '../store/guestCart'
+import {
+  fetchGuestCart,
+  updateQtyInGuestCart,
+  deleteGuestItem
+} from '../store/guestCart'
 import {connect} from 'react-redux'
 import ProductsTray from './ProductsTray'
 import GuestProductTray from './GuestProductsTray'
@@ -23,7 +27,7 @@ class Cart extends React.Component {
       await this.props.deleteItemFromDb(productId)
       this.forceUpdate()
     } else {
-      this.props.deleteItem(productId)
+      this.props.deleteGuestItem(productId)
     }
   }
 
@@ -82,6 +86,7 @@ const mapDispatch = dispatch => ({
     dispatch(updateQtyInCart(productId, userQty)),
   updateQtyInGuestCart: (productId, guestUserQty) =>
     dispatch(updateQtyInGuestCart(productId, guestUserQty)),
-  deleteItemFromDb: productId => dispatch(deleteItemFromDb(productId))
+  deleteItemFromDb: productId => dispatch(deleteItemFromDb(productId)),
+  deleteGuestItem: productId => dispatch(deleteGuestItem(productId))
 })
 export default connect(mapState, mapDispatch)(Cart)
