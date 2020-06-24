@@ -1,30 +1,50 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchOrders} from '../store/orders'
-import {render} from 'enzyme'
-
-class AllOrders extends React.Compoonent {
+import {Link} from 'react-router-dom'
+class AllOrders extends React.Component {
   componentDidMount() {
+    console.log('component mounted')
     this.props.getOrders()
   }
 
   render() {
     const {orders} = this.props
-    return (
-      <div>
-        <h3>Order History</h3>
+    if (orders.length) {
+      return (
         <div>
-          {orders.map(order => (
-            <dl>
-              <dt>Order Date</dt>
-              <dd>{order.updatedAt}</dd>
-              <dt>Order Total</dt>
-              <dd>{order.total / 100}</dd>
-            </dl>
-          ))}{' '}
+          <h2>Order History</h2>
+
+          <div>
+            {orders.map(order => (
+              <dl key={order.id}>
+                <dt>
+                  <Link to={`/orders/${orders.id}`}>
+                    <b>Order #</b>
+                  </Link>
+                </dt>
+                <dd>{order.id}</dd>
+                <dt>
+                  <b>Order Date</b>
+                </dt>
+                <dd>{order.updatedAt}</dd>
+                <dt>
+                  <b>Order Total</b>
+                </dt>
+                <dd>${order.total / 100}</dd>
+              </dl>
+            ))}
+          </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div>
+          <h2>Order History</h2>
+          <div> No Past Orders.</div>
+        </div>
+      )
+    }
   }
 }
 

@@ -7,7 +7,7 @@ import products from './products'
 import cart from './cart'
 import singleProduct from './singleProduct'
 import guestCart from './guestCart'
-
+import orders from './orders'
 //Adding local storage to the redux store
 
 function saveToLocalStorage(cartState) {
@@ -27,7 +27,8 @@ const reducer = combineReducers({
   products,
   cart,
   singleProduct,
-  guestCart
+  guestCart,
+  orders
 })
 
 const middleware = composeWithDevTools(
