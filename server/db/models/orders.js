@@ -3,7 +3,6 @@ const Sequelize = require('sequelize')
 const OrderProducts = require('../models/orderProducts')
 const Order = db.define('order', {
   userId: {
-    //posibly add a join table for user id
     type: Sequelize.INTEGER,
     allowNull: false
   },
@@ -15,10 +14,6 @@ const Order = db.define('order', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   }
-
-  // orderDate: {
-  //   type: Sequelize.TIME
-  // }
 })
 
 Order.prototype.getOrderProductQuantity = async function() {
@@ -29,7 +24,5 @@ Order.prototype.getOrderProductQuantity = async function() {
   })
   return orderProducts
 }
-//this model as well has UserId
-//Child of User
-//has method addOrderDetails
+
 module.exports = Order

@@ -56,7 +56,7 @@ async function seed() {
   const order4 = await Orders.create({
     userId: 1,
     total: 5000,
-    isCompleted: false
+    isCompleted: true
   })
 
   // console.log(users[0].__proto__);
