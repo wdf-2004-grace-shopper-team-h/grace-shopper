@@ -1,6 +1,5 @@
 import axios from 'axios'
 import history from '../history'
-import {setNumItems} from './numberOfItems'
 
 //action----------------------------------------
 const GET_PRODUCTS = 'GET_PRODUCTS'
@@ -17,7 +16,6 @@ const getProducts = products => ({
 export const fetchProducts = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/products')
-    dispatch(setNumItems(1))
     dispatch(getProducts(data))
   } catch (error) {
     console.error(error)

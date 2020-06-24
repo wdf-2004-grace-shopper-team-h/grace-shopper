@@ -4,60 +4,47 @@ const {Products, User, OrderProducts, Orders} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
-  try {
-    const mostRecentOrder = await Orders.findOne({
-      where: {
-        userId: req.session.userId || 1,
-        isCompleted: false
-      },
-      include: {model: Products}
-    })
+  if (req.session.userId) {
+    try {
+      const mostRecentOrder = await Orders.findOne({
+        where: {
+          userId: req.session.userId,
+          isCompleted: false
+        },
+        include: {model: Products}
+      })
 
-    const twoDOrder = order => {
-      order.products.map(
-        product =>
-          (product.dataValues.quantitySold =
-            product.order_products.numberOfItems)
-      )
+      const twoDOrder = order => {
+        //Make a util function
+        order.products.map(
+          product =>
+            (product.dataValues.quantitySold =
+              product.order_products.numberOfItems)
+        )
+      }
+      twoDOrder(mostRecentOrder)
+
+      res.status(200).json(mostRecentOrder)
+    } catch (err) {
+      next(err)
     }
-    twoDOrder(mostRecentOrder)
-
-    //Pull order products table off the products we queried from the database and make it easier to access.
-    // This method will create an array of objects that contain the order_products data and store it in a variable
-    // let ordersToSend = mostRecentOrder.products
-    //   .map(el => el.dataValues.order_products)
-    //   .map(el => {
-    //     //
-    //     return {
-    //       orderId: el.orderId,
-    //       productId: el.productId,
-    //       numberOfItems: el.numberOfItems,
-    //       priceSold: el.priceSold,
-    //       createdAt: el.createdAt
-    //     }
-    //   }) //O(n^2);
-
-    // // reassign the variable to include the the product that corresponds to the productId from the data queried.
-    // ordersToSend = ordersToSend.map(el => {
-    //   return {
-    //     ...el,
-    //     product: mostRecentOrder.products.filter(
-    //       element =>
-    //         element.dataValues.id === el.productId
-    //           ? {...element.dataValues}
-    //           : null
-    //     )[0].dataValues
-    //   }
-    // }) //O(n^2);
-
-    res.status(200).json(mostRecentOrder)
-  } catch (err) {
-    next(err)
+  } else {
+    try {
+      const guestProducts = await Products.findAll({
+        where: {
+          id: {
+            [Op.in]: req.query.productIds
+          }
+        }
+      })
+      res.json(guestProducts)
+    } catch (error) {
+      next(error)
+    }
   }
 })
 
 router.post('/', async (req, res, next) => {
-  console.log(req.session)
   try {
     const cart = await OrderProducts.create({
       orderId: req.session.orderId,
@@ -119,4 +106,14 @@ router.delete('/delete/:id', async (req, res, next) => {
 //   }
 // })
 
-// // })
+router.put('/:id', async (req, res, next) => {
+  //console.log(req.body)
+  const orderToUpdate = await OrderProducts.findOne({
+    where: {
+      orderId: req.session.orderId,
+      productId: req.params.id
+    }
+  })
+  orderToUpdate.update({numberOfItems: req.body.userQuantity})
+  res.sendStatus(201)
+})

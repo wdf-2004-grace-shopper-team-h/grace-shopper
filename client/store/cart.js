@@ -1,7 +1,7 @@
 import axios from 'axios'
 import history from '../history'
-import {setNumItems} from './numberOfItems'
 
+export const UPDATE_ITEM_IN_CART = 'UPDATE_ITEM_IN_CART'
 const GET_ITEMS_IN_CART = 'GET_ITEMS_IN_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
@@ -15,13 +15,11 @@ export const getItems = items => ({
   items
 })
 
-// export const addItemToCart = (productId, numberOfItems) => ({
-//   type: ADD_TO_CART,
-//   item: {
-//     itemId: productId,
-//     numberOfItems
-//   }
-// })
+export const updateItemInCart = (productId, userQuantity) => ({
+  type: UPDATE_ITEM_IN_CART,
+  itemId: productId,
+  userQuantity
+})
 
 export const addItemToCart = productId => ({
   type: ADD_TO_CART,
@@ -33,7 +31,6 @@ export const addItemToCart = productId => ({
 export const fetchCart = () => async dispatch => {
   //will change to accomodate user logged in or not.
   try {
-    // console.log('checking user',req.session.userId)
     const {data} = await axios.get(`/api/cart`)
     dispatch(getItems(data))
   } catch (error) {
@@ -41,10 +38,11 @@ export const fetchCart = () => async dispatch => {
   }
 }
 
-export const pushProduct = productId => async (dispatch, getState) => {
+export const pushProduct = (productId, numberOfItems) => async (
+  dispatch,
+  getState
+) => {
   try {
-    const numberOfItems = getState().numberOfItems
-    dispatch(setNumItems(1))
     await axios.post('/api/cart', {productId, numberOfItems})
     history.push('/cart')
   } catch (error) {
@@ -53,10 +51,15 @@ export const pushProduct = productId => async (dispatch, getState) => {
 }
 
 //will grab the id from the product and user quantity on the react end to send here and update the database cart model to include the new item.
-export const updateQtyInCart = (productId, userQuantity) => async dispatch => {
+export const updateQtyInCart = (
+  productId,
+  userQuantity,
+  orderId
+) => async dispatch => {
   try {
-    await axios.put(`/api/cart/${productId}`, userQuantity)
-    dispatch(addItemToCart(productId, userQuantity))
+    await axios.put(`/api/cart/${productId}`, {userQuantity, orderId})
+    dispatch(updateItemInCart(productId, userQuantity))
+    history.push('/cart')
   } catch (error) {
     console.error(error)
   }
@@ -86,6 +89,21 @@ export default (state = defaultItems, action) => {
         return product.id != action.productId
       })
       return {...state, products: [...newList]}
+    case UPDATE_ITEM_IN_CART:
+      const newQtyList = state.products.map(product => {
+        if (product.id == action.itemId) {
+          product.numberOfItems = action.userQuantity
+        }
+        return product
+      })
+      return {
+        ...state,
+        products: [...newQtyList],
+        order_products: {
+          ...state.order_products,
+          numberOfItems: action.userQuantity
+        }
+      }
     default:
       return state
   }
