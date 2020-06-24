@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {getItems, GET_ITEMS_IN_CART} from './cart'
+import {getItems, GET_ITEMS_IN_CART, REMOVE_FROM_CART} from './cart'
 const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
 export const UPDATE_ITEM_IN_GUEST_CART = 'UPDATE_ITEM_IN_GUEST_CART'
 
@@ -23,7 +23,7 @@ export const fetchGuestCart = () => async (dispatch, getState) => {
     //console.log(getState().guestCart);
     let productIds = getState().guestCart.map(el => el.itemId)
     const {data} = await axios.get(`/api/cart`, {params: {productIds}})
-    console.log(data)
+
     for (let i = 0; i < data.length; i++) {
       data[i].numberOfItems = getState().guestCart[i].numOfItems
     }
@@ -51,13 +51,19 @@ export default (state = guestCart, action) => {
       }
       return [...state, action.item]
     case UPDATE_ITEM_IN_GUEST_CART:
-      let newList = state.map(product => {
-        if (product.id === action.itemId) {
-          product.numberOfItems = action.numberOfItems
+      //console.log(action.userQuantity)
+      const newList = state.map(product => {
+        if (product.itemId === action.itemId) {
+          product.numOfItems = action.userQuantity
         }
         return product
       })
       return [...newList]
+    case REMOVE_FROM_CART:
+      const removedItemList = state.filter(product => {
+        return product.id != action.productId
+      })
+      return {...state, products: [...removedItemList]}
     default:
       return state
   }

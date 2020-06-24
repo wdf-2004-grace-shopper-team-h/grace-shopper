@@ -19,7 +19,7 @@ const GuestProductTray = props => {
             <th>Price</th>
           </tr>
           {order.map(item => (
-            <tr key={item.id}>
+            <tr key={item.id} id={item.id}>
               <td>
                 <img src={item.imgUrl} width="200" height="200" />
               </td>
