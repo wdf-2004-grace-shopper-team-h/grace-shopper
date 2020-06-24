@@ -1,15 +1,22 @@
 import axios from 'axios'
 import history from '../history'
 import {getItems, GET_ITEMS_IN_CART, REMOVE_FROM_CART} from './cart'
-const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
-export const UPDATE_ITEM_IN_GUEST_CART = 'UPDATE_ITEM_IN_GUEST_CART'
 
+const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
+
+export const UPDATE_ITEM_IN_GUEST_CART = 'UPDATE_ITEM_IN_GUEST_CART'
+export const REMOVE_FROM_GUEST_CART = 'REMOVE_FROM_GUEST_CART'
 export const addItemToGuestCart = (productId, numOfItems) => ({
   type: ADD_TO_GUEST_CART,
   item: {
     itemId: productId,
     numOfItems
   }
+})
+
+export const deleteGuestItem = productId => ({
+  type: REMOVE_FROM_GUEST_CART,
+  productId
 })
 
 export const updateQtyInGuestCart = (productId, userQuantity) => ({
@@ -59,11 +66,12 @@ export default (state = guestCart, action) => {
         return product
       })
       return [...newList]
-    case REMOVE_FROM_CART:
+    case REMOVE_FROM_GUEST_CART:
+      console.log(action)
       const removedItemList = state.filter(product => {
-        return product.id != action.productId
+        return product.itemId != action.productId
       })
-      return {...state, products: [...removedItemList]}
+      return [...removedItemList]
     default:
       return state
   }
