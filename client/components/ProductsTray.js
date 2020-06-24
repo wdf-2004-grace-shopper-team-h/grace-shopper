@@ -42,9 +42,9 @@ const ProductTray = props => {
                   <option value="8">8</option>
                   <option value="9">9</option>
                 </select>
-                {item.order_products.numberOfItems}
+                {/* {item.order_products.numberOfItems} */}
               </td>
-              <td>{item.price * item.order_products.numberOfItems}</td>
+              <td>${item.price * item.order_products.numberOfItems / 100}</td>
               <td>
                 <button onClick={props.handleClickDel}>Delete</button>
               </td>
@@ -54,7 +54,7 @@ const ProductTray = props => {
             <td colSpan="3" align="right">
               <b>Subtotal:</b>
             </td>
-            <td>{totalAmount}</td>
+            <td>${totalAmount / 100}</td>
           </tr>
         </tbody>
       </table>
