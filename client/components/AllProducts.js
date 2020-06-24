@@ -8,7 +8,7 @@ class AllProducts extends React.Component {
     this.props.getProducts()
   }
 
-  handleOnClickAddToCart = () => event => {}
+  handlrOnClickAddToCart = () => event => {}
 
   render() {
     const {products} = this.props

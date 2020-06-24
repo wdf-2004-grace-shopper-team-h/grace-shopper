@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchOrders} from '../store/orders'
 import {Link} from 'react-router-dom'
+import moment from 'moment'
 class AllOrders extends React.Component {
   componentDidMount() {
     console.log('component mounted')
@@ -20,14 +21,16 @@ class AllOrders extends React.Component {
               <dl key={order.id}>
                 <h3>
                   <Link to={`/orders/${order.id}`}>
-                    <b>Order #{order.id}</b>{' '}
+                    <b>Order #{order.id}</b>
                   </Link>
                 </h3>
 
                 <dt style={{marginLeft: 16 + 'px'}}>
                   <b>Order Date</b>
                 </dt>
-                <dd>{order.updatedAt}</dd>
+                <dd>
+                  {moment(order.updatedAt).format('MMMM Do YYYY, h:mm:ss a')}
+                </dd>
                 <dt style={{marginLeft: 16 + 'px'}}>
                   <b>Order Total</b>
                 </dt>

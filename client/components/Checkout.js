@@ -39,16 +39,19 @@ export class Checkout extends React.Component {
               />
             </div>
             <div>
-              <label htmlFor="Adress">Adress</label>
+              <label htmlFor="Address">Address</label>
               <input
-                type="Adress"
-                id="adress"
-                name="adress"
-                placeholder={user.adress ? user.adress : 'Enter your Adress'}
+                type="Address"
+                id="address"
+                name="address"
+                placeholder={user.address ? user.address : 'Enter your Address'}
                 required
               />
             </div>
             <button type="submit">Confirm Order</button>
+            {/*if not filled, button should not work , handleSubmit to 
+            change order.isCompleted to true and redirect to orders page. 
+            take price total and append to price sold , orders total*/}
           </form>
         </div>
       </div>

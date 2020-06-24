@@ -22,7 +22,7 @@ export class SingleProduct extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handlrOnClickAddToCart = () => event => {}
+  // handlrOnClickAddToCart = () => event => {}
 
   async addToCartTest(event) {
     event.preventDefault()
