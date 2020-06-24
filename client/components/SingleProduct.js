@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProduct} from '../store/singleProduct'
 import {Link} from 'react-router-dom'
-import {pushProduct} from '../store/cart'
+import {pushProduct, deleteItem} from '../store/cart'
 import {me} from '../store/user'
 import {setNumItems} from '../store/numberOfItems'
 import {addItemToGuestCart} from '../store/guestCart'
@@ -26,7 +26,9 @@ export class SingleProduct extends React.Component {
 
   async addToCartTest(event) {
     event.preventDefault()
+
     const selectValue = Number(event.target.previousElementSibling.value)
+    console.log(this.props.product.id)
     if (this.props.user.id) {
       await this.props.pushProduct(this.props.product.id, selectValue)
     } else {
@@ -88,7 +90,8 @@ const mapDispatch = dispatch => {
       dispatch(pushProduct(productId, numberOfItems)),
     setNumItems: num => dispatch(setNumItems(num)),
     addItemToGuestCart: (productId, numberOfItems) =>
-      dispatch(addItemToGuestCart(productId, numberOfItems))
+      dispatch(addItemToGuestCart(productId, numberOfItems)),
+    deleteItem: productId => dispatch(deleteItem(productId))
   }
 }
 

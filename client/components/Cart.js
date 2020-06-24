@@ -18,19 +18,24 @@ class Cart extends React.Component {
   }
   handleClickDel = async event => {
     event.preventDefault()
-    const productId = event.target.parentElement.parentElement.id
-    await this.props.deleteItemFromDb(productId)
-    this.forceUpdate()
+    const productId = Number(event.target.parentElement.parentElement.id)
+    if (this.props.user.id) {
+      await this.props.deleteItemFromDb(productId)
+      this.forceUpdate()
+    } else {
+      this.props.deleteItem(productId)
+    }
   }
 
-  handleChange = event => {
+  handleChange = async event => {
     const qty = Number(event.target.value)
     const productId = Number(event.target.parentElement.parentElement.id)
     const orderId = event.target.id
     if (this.props.user.id) {
       this.props.updateQtyInCart(productId, qty, orderId)
     } else {
-      this.props.updateQtyInGuestCart(productId, qty)
+      await this.props.updateQtyInGuestCart(productId, qty)
+      this.forceUpdate()
     }
   }
 
