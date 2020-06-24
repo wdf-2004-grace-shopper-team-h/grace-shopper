@@ -24,13 +24,6 @@ class AllProducts extends React.Component {
                 <img src={product.imgUrl} width="200" height="200" />price: ${product.price /
                   100}
               </div>
-              {product.inventoryAmount > 0 ? (
-                <button onClick={this.handlrOnClickAddToCart()}>
-                  Add to cart
-                </button>
-              ) : (
-                <p>Out of Stock</p>
-              )}
             </li>
           ))}
         </ul>
