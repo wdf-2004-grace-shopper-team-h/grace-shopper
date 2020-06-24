@@ -19,7 +19,7 @@ class AllOrders extends React.Compoonent {
               <dt>Order Date</dt>
               <dd>{order.updatedAt}</dd>
               <dt>Order Total</dt>
-              <dd>{order.total}</dd>
+              <dd>{order.total / 100}</dd>
             </dl>
           ))}{' '}
         </div>

@@ -16,6 +16,7 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
+      req.session.admin = user.admin
       const orders = user.orders
       const id = user.id
       if (orders.length) {
@@ -28,9 +29,6 @@ router.post('/login', async (req, res, next) => {
           req.session.orderId = lastOrder.id
         }
       }
-
-      console.log(orders)
-      req.session.admin = user.isAdmin
       req.session.userId = user.id
       req.login(user, err => (err ? next(err) : res.json(user)))
     }

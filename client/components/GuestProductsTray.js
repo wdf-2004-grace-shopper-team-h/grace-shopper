@@ -1,35 +1,32 @@
 import React from 'react'
 
-const ProductTray = props => {
+const GuestProductTray = props => {
   const order = props.order
-  const products = props.order.products
-
   let totalAmount = 0
-  products.map(item => {
-    totalAmount += item.price * item.order_products.numberOfItems
+  order.map(item => {
+    totalAmount += item.price * item.numberOfItems
   })
 
   return (
     <div>
-      <h2>Cart Order # {order.id}</h2>
+      <h2>Guest Cart</h2>
       <table>
         <tbody>
           <tr>
-            <th>Image</th>
+            <th />
             <th>Name</th>
             <th>Quantity</th>
             <th>Price</th>
           </tr>
-          {products.map(item => (
-            <tr key={item.id} id={item.id}>
+          {order.map(item => (
+            <tr key={item.id}>
               <td>
                 <img src={item.imgUrl} width="200" height="200" />
               </td>
               <td>{item.name}</td>
               <td>
                 <select
-                  id={order.id}
-                  defaultValue={item.order_products.numberOfItems}
+                  defaultValue={item.numberOfItems}
                   onChange={props.handleChange}
                 >
                   <option value="1">1</option>
@@ -42,12 +39,8 @@ const ProductTray = props => {
                   <option value="8">8</option>
                   <option value="9">9</option>
                 </select>
-                {item.order_products.numberOfItems}
               </td>
-              <td>{item.price * item.order_products.numberOfItems}</td>
-              <td>
-                <button onClick={props.handleClickDel}>Delete</button>
-              </td>
+              <td>{item.price * item.numberOfItems}</td>
             </tr>
           ))}
           <tr>
@@ -60,7 +53,6 @@ const ProductTray = props => {
       </table>
     </div>
   )
-  //return <div/>
 }
 
-export default ProductTray
+export default GuestProductTray

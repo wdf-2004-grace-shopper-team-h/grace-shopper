@@ -1,12 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {
   fetchProduct,
   deleteProduct,
   modifyProduct
 } from '../store/singleProduct'
-import ModifyProductForm from './ModifyProductForm'
+import ProductForm from './ProductForm'
 
 export class AdminProduct extends React.Component {
   constructor(props) {
@@ -24,8 +23,8 @@ export class AdminProduct extends React.Component {
   }
 
   async componentDidMount() {
-    const id = this.props.match.params.id
-    await this.props.getProduct(id)
+    const id = this.props.match.params.id //get params id
+    await this.props.getProduct(id) //mount this.props
     this.setState({
       name: this.props.product.name,
       inventoryAmount: this.props.product.inventoryAmount,
@@ -35,18 +34,22 @@ export class AdminProduct extends React.Component {
     })
   }
 
-  handleOnClickSubmit(event) {
+  //function for Submit button
+  //send whole state of the class and id from url to thunk for modifying product in db
+  async handleOnClickSubmit(event) {
     event.preventDefault()
     const id = this.props.match.params.id
     try {
-      this.props.modifyProduct(id, this.state)
+      await this.props.modifyProduct(id, this.state)
     } catch (err) {
       console.log('Modify product reject', err)
     }
   }
 
-  //delete
-  handleOnClickRemove = async event => {
+  // function for delete button
+  //delete current product(by id from url)
+  //after delete product redirect to all product page
+  async handleOnClickRemove(event) {
     event.preventDefault()
     const id = this.props.match.params.id
     try {
@@ -57,6 +60,7 @@ export class AdminProduct extends React.Component {
     }
   }
 
+  //form on change function
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
   }
@@ -70,7 +74,7 @@ export class AdminProduct extends React.Component {
           <center>
             <h3>Modify Product</h3>
           </center>
-          <ModifyProductForm
+          <ProductForm
             stuff={this.state}
             onChangeFunc={this.handleChange}
             onClickFunc={this.handleOnClickSubmit}
